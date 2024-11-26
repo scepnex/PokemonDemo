@@ -20,9 +20,20 @@ void testCreature()
 
     BattleMove* testMove = new MoveBlizzard();
 
-    testMove->Attack(testCreature);
+    testMove->Attack(*testCreature);
 
     testCreature->creatureInfo();
+
+    Creature* testCreature2 = new Forretress();
+    testCreature2->creatureInfo();
+
+    delete testMove;
+    testMove = new MoveEmber();
+
+    testMove->Attack(*testCreature2);
+
+    testCreature2->creatureInfo();
+
 }
 
 void testTypes()
@@ -45,6 +56,11 @@ void testMoves()
 {
     BattleMove* testMove = new MoveBlizzard();
 
+    testMove->ListParts();
+
+    delete testMove;
+
+    testMove = new MoveEmber();
     testMove->ListParts();
 }
 
@@ -73,9 +89,9 @@ int main()
 {
     testCreature();
 
-    testTypes();
+    //testTypes();
 
     testMoves();
 
-    testStatBuffs();
+    //testStatBuffs();
 }

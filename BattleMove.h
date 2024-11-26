@@ -2,17 +2,12 @@
 
 #include <Creature.h>
 #include <CreatureTypes.h>
+#include <Status.h>
 #include <string>
 #include <vector>
 #include <iostream>
 
 using namespace std;
-
-enum Effects {
-	None,
-	Freeze,
-	Flinch
-};
 
 class MoveComponent
 {
@@ -21,7 +16,7 @@ public:
 	MoveComponent() {}
 	virtual ~MoveComponent() {}
 
-	virtual void Apply(Types type, Creature* target) = 0;
+	virtual void Apply(Types type, Creature& target) = 0;
 	virtual void print() = 0;
 
 	bool operator == (const MoveComponent& rhs) const
@@ -38,19 +33,19 @@ protected:
 public:
 	Damage(int value) : power(value) {}
 
-	void Apply(Types type, Creature* target) override { target->damage(power); }
+	void Apply(Types type, Creature& target) override { target.damage(power); }
 	void print() override { cout << "Damage for " << power; }
 };
 
 class Effect : public MoveComponent
 {
 protected:
-	Effects effect = None;
+	Status* effect;
 	int successRate = 0;
 public:
-	Effect(Effects _effect, int rate) : effect(_effect), successRate(rate) {}
+	Effect(Status* _effect, int rate) : effect(_effect), successRate(rate) {}
 
-	void Apply(Types type, Creature* target) override { target->applyStatus("Effect applied."); }
+	void Apply(Types type, Creature& target) override { target.applyStatus("Effect applied."); }
 	void print() override { cout << "Effect success rate is " << successRate << '%'; }
 };
 
@@ -63,10 +58,13 @@ protected:
 	Types attackType =	TYPE_NONE;
 	int powerPoints = 0;
 	int accuracy = 0;
+	int priority = 0;
 
 	std::vector<MoveComponent*> elements;
 
 public:
+
+	int movePriority() { return priority; }
 
 	void AddComponent(MoveComponent* comp)
 	{
@@ -100,7 +98,7 @@ public:
 		cout << endl;
 	}
 
-	void Attack(Creature* target)
+	void Attack(Creature& target)
 	{
 		for (int i = 0; i < elements.size(); i++)
 		{
@@ -114,13 +112,19 @@ class MoveBlizzard : public BattleMove
 public:
 	MoveBlizzard()
 	{
-		name = "Blizzard";;
+		name = "Blizzard";
 		battleEffect = "Strongest ICE attack. Might Freeze Target.";
 		attackType = ICE;
 		powerPoints = 5;
 		accuracy = 70;
 
 		AddComponent(new Damage(120));
-		AddComponent(new Effect(Freeze, 10));
+		AddComponent(new Effect(new Freeze(), 10));
 	}
+};
+
+class MoveEmber : public BattleMove
+{
+public:
+	MoveEmber();
 };

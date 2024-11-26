@@ -12,6 +12,8 @@ private:
 	Creature& combatant2; //in single player, this will be the Computer player
 	BattleInfo& bInfo2;
 
+
+
 public:
 	void Turn();
 	void DeterminePriority();

@@ -32,6 +32,9 @@ protected:
 	int baseStats[NUM_BASESTATS] = { 0, 0, 0, 0, 0, 0 };
 	int leveledStats[NUM_BASESTATS] = { 0, 0, 0, 0, 0, 0 };
 
+	Types type1 = TYPE_NONE;
+	Types type2 = TYPE_NONE;
+
 public:
 	//other stats, stuff that might change in battle
 	int currentHealth = 0;
@@ -47,6 +50,8 @@ public:
 	void setStats();
 	void setStat(Stats stat);
 
+	int getStat(Stats stat) const { return leveledStats[stat]; }
+
 	void damage(int value);
 	void applyStatus(std::string txt) {}
 
@@ -59,6 +64,12 @@ class Cloyster : public Creature
 {
 public:
 	Cloyster();
+};
+
+class Forretress : public Creature
+{
+public:
+	Forretress();
 };
 
 #endif

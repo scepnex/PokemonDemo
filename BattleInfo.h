@@ -18,8 +18,11 @@ class BattleInfo
 	BattleMove& currentMove;
 
 	StatModifiers statMods;
+public:
 
 	void StatusEffectBeforeMove();
 	void StatusEndOfTurn();
+
+	int priority() { return currentMove.movePriority(); }
 };
 

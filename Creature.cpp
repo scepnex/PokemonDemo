@@ -76,8 +76,23 @@ Cloyster::Cloyster()
 {
 	name = "Cloyster";
 	level = 1;
+	type1 = WATER;
+	type2 = ICE;
 
 	setBaseStats(50, 95, 180, 85, 45, 70);
+	setStats();
+
+}
+
+Forretress::Forretress()
+{
+	name = "Forretress";
+	level = 1;
+
+	type1 = BUG;
+	type2 = STEEL;
+
+	setBaseStats(75, 90, 140, 60, 60, 40);
 	setStats();
 
 }
