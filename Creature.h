@@ -15,6 +15,8 @@ enum Stats
 	SPATK,
 	SPDEF,
 	SPEED,
+	EVASION,
+	ACCURACY,
 	NUM_BASESTATS
 };
 

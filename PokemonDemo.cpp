@@ -9,6 +9,8 @@ using namespace std;
 #include <CreatureTypes.h>
 #include <BattleMove.h>
 
+#include <StatModifiers.h>
+
 void testCreature()
 {
 
@@ -46,6 +48,27 @@ void testMoves()
     testMove->ListParts();
 }
 
+void testStatBuffs()
+{
+    StatModifiers stat;
+    stat.increaseByOneLevel(ATTACK);
+
+    stat.debugDisplayBuffs();
+    stat.increaseByTwoLevels(ATTACK);
+    stat.debugDisplayBuffs();
+    stat.increaseByTwoLevels(ATTACK);
+    stat.debugDisplayBuffs();
+    stat.increaseByTwoLevels(ATTACK);
+    stat.debugDisplayBuffs();
+    stat.minimumBuff(ATTACK);
+    stat.debugDisplayBuffs();
+    stat.maximumBuff(ATTACK);
+    stat.maximumBuff(DEFENSE);
+    stat.decreaseByTwoLevels(SPATK);
+    stat.maximumBuff(SPDEF);
+    stat.debugDisplayBuffs();
+}
+
 int main()
 {
     testCreature();
@@ -53,4 +76,6 @@ int main()
     testTypes();
 
     testMoves();
+
+    testStatBuffs();
 }

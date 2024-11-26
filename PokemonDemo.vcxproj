@@ -131,15 +131,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BattleInfo.cpp" />
+    <ClCompile Include="BattleManager.cpp" />
     <ClCompile Include="BattleMove.cpp" />
     <ClCompile Include="Creature.cpp" />
     <ClCompile Include="CreatureTypes.cpp" />
     <ClCompile Include="PokemonDemo.cpp" />
+    <ClCompile Include="StatModifiers.cpp" />
+    <ClCompile Include="Status.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BattleInfo.h" />
+    <ClInclude Include="BattleManager.h" />
     <ClInclude Include="BattleMove.h" />
     <ClInclude Include="Creature.h" />
     <ClInclude Include="CreatureTypes.h" />
+    <ClInclude Include="StatModifiers.h" />
+    <ClInclude Include="Status.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
