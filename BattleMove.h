@@ -28,10 +28,10 @@ public:
 class Damage : public MoveComponent
 {
 protected:
-	int power = 0;
+	float power = 0.f; // float type for ease of reading code. Use whole numbers for moves
 
 public:
-	Damage(int value) : power(value) {}
+	Damage(float value) : power(value) {}
 
 	void Apply(Types type, Creature* target) override { target->damage(power); }
 	void print() override { cout << "Damage for " << power; }
@@ -41,9 +41,9 @@ class Effect : public MoveComponent
 {
 protected:
 	Status* effect;
-	int successRate = 0;
+	float successRate = 0.f;
 public:
-	Effect(Status* _effect, int rate) : effect(_effect), successRate(rate) {}
+	Effect(Status* _effect, float rate) : effect(_effect), successRate(rate) {}
 
 	void Apply(Types type, Creature* target) override { target->applyStatus("Effect applied."); }
 	void print() override { cout << "Effect success rate is " << successRate << '%'; }
@@ -57,7 +57,7 @@ protected:
 	std::string battleEffect;
 	Types attackType =	TYPE_NONE;
 	int powerPoints = 0;
-	int accuracy = 0;
+	float accuracy = 0.f;
 	int priority = 0;
 
 	std::vector<MoveComponent*> elements;
@@ -65,6 +65,7 @@ protected:
 public:
 	std::string getName() { return name; }
 
+	float getAccuracy() { return accuracy; }
 	int movePriority() { return priority; }
 
 	void AddComponent(MoveComponent* comp)
@@ -111,17 +112,7 @@ public:
 class MoveBlizzard : public BattleMove
 {
 public:
-	MoveBlizzard()
-	{
-		name = "Blizzard";
-		battleEffect = "Strongest ICE attack. Might Freeze Target.";
-		attackType = ICE;
-		powerPoints = 5;
-		accuracy = 70;
-
-		AddComponent(new Damage(120));
-		AddComponent(new Effect(new Freeze(), 10));
-	}
+	MoveBlizzard();
 };
 
 class MoveEmber : public BattleMove

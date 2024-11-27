@@ -21,7 +21,7 @@ public:
 	bool DeterminePriority();
 	void CreatureTurn(Creature* active, BattleInfo* activeInfo, Creature* target, BattleInfo* targetInfo);
 	void BeforeMoveStatusEffects(BattleInfo* activeInfo);
-	bool TryAttack(Creature* target, BattleInfo* targetInfo);
+	bool TryAttack(Creature* active, BattleInfo* activeInfo, Creature* target, BattleInfo* targetInfo);
 	void ApplyAttack(Creature* active, BattleInfo* activeInfo, Creature* target, BattleInfo* targetInfo);
 	void EndOfTurnStatus();
 

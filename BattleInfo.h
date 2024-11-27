@@ -27,6 +27,8 @@ public:
 	void SetCurrentMove(BattleMove* move) { currentMove = move; }
 	BattleMove* GetCurrentMove() { return currentMove; }
 
+	float getStatMod(Stats stat);
+
 	int priority();
 };
 

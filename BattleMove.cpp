@@ -6,8 +6,20 @@ MoveEmber::MoveEmber()
 	battleEffect = "Basic FIRE attack.";
 	attackType = FIRE;
 	powerPoints = 25;
-	accuracy = 100;
+	accuracy = 100.f;
 
 	AddComponent(new Damage(40));
 	AddComponent(new Effect(new Burn(), 10));
+}
+
+MoveBlizzard::MoveBlizzard()
+{
+	name = "Blizzard";
+	battleEffect = "Strongest ICE attack. Might Freeze Target.";
+	attackType = ICE;
+	powerPoints = 5;
+	accuracy = 70.f;
+
+	AddComponent(new Damage(120));
+	AddComponent(new Effect(new Freeze(), 10));
 }

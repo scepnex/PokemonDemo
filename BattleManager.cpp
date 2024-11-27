@@ -1,5 +1,13 @@
 #include "BattleManager.h"
 
+using namespace std;
+
+static float randomFloat()
+{
+	rand(); // we added a call to rand here because i did not feel like dealing with a better solution for c++ randomness
+	return (float)(rand()) / (float)(RAND_MAX);
+}
+
 void BattleManager::SetCreature1(Creature* p1, BattleInfo* b1)
 {
 	combatant1 = p1;
@@ -56,16 +64,30 @@ void BattleManager::BeforeMoveStatusEffects(BattleInfo* activeInfo)
 	activeInfo->StatusEffectBeforeMove();
 }
 
-bool BattleManager::TryAttack(Creature* target, BattleInfo* targetInfo)
+bool BattleManager::TryAttack(Creature* active, BattleInfo* activeInfo, Creature* target, BattleInfo* targetInfo)
 {
-	return true;
+	cout << active->getName() << " used " << activeInfo->GetCurrentMove()->getName() << ". ";
+	
+	bool result = false;
+	
+	float moveAcc = activeInfo->GetCurrentMove()->getAccuracy();
+	float modifierTotal = activeInfo->getStatMod(ACCURACY) * targetInfo->getStatMod(EVASION);
+
+	float accuracyRoll = randomFloat() * 100.f;
+	
+	float modifierCalc = moveAcc * modifierTotal;
+	result = accuracyRoll <= modifierCalc;
+
+	cout << accuracyRoll << " <= " << modifierCalc << endl;
+
+	return result;
 }
 
 void BattleManager::ApplyAttack(Creature* active, BattleInfo* activeInfo, Creature* target, BattleInfo* targetInfo)
 {
 	activeInfo->GetCurrentMove()->Attack(target);
 
-	cout << active->getName() << " attacked " << target->getName() << " with " << activeInfo->GetCurrentMove()->getName() << ".\n";
+	//cout << active->getName() << " attacked " << target->getName() << " with " << activeInfo->GetCurrentMove()->getName() << ".\n";
 }
 
 void BattleManager::EndOfTurnStatus()
@@ -80,9 +102,14 @@ void BattleManager::CreatureTurn(Creature* active, BattleInfo* activeInfo, Creat
 
 	BeforeMoveStatusEffects(activeInfo);
 
-	if (TryAttack(target, targetInfo))
+	if (TryAttack(active, activeInfo, target, targetInfo))
 	{
+		cout << " Success!\n";
 		ApplyAttack(active, activeInfo, target, targetInfo);
+	}
+	else
+	{
+		cout << active->getName() << " missed!\n";
 	}
 }
 

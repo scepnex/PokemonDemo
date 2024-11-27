@@ -69,9 +69,14 @@ void Creature::setStat(Stats stat)
 
 void Creature::damage(int value)
 {
+	cout << name << " damaged for " << value << "\n";
 	currentHealth -= value;
 }
 
+void Creature::applyStatus(string txt)
+{
+	cout << txt << endl;
+}
 Cloyster::Cloyster()
 {
 	name = "Cloyster";

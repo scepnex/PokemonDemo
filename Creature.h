@@ -3,6 +3,7 @@
 #ifndef __CREATURE_H_INCLUDED__
 #define __CREATURE_H_INCLUDED__
 
+#include <iostream>
 #include <string>
 #include <map>
 #include <CreatureTypes.h>
@@ -54,7 +55,7 @@ public:
 	std::string getName() { return name; }
 
 	void damage(int value);
-	void applyStatus(std::string txt) {}
+	void applyStatus(std::string txt);
 
 	virtual ~Creature() {}
 	//virtual Creature* Clone() const = 0;

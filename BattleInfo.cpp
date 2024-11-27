@@ -1,6 +1,11 @@
 #include "BattleInfo.h"
 
 
+float BattleInfo::getStatMod(Stats stat)
+{
+	return statMods.getStatMod(stat);
+}
+
 int BattleInfo::priority()
 {
 	int result = -1;

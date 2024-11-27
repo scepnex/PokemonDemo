@@ -118,6 +118,8 @@ void testBattle()
 
 int main()
 {
+    srand(time(NULL));
+
     //testCreature();
 
     //testTypes();
