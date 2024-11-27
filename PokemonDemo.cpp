@@ -11,8 +11,12 @@ using namespace std;
 
 #include <StatModifiers.h>
 
+#include <BattleManager.h>
+#include <BattleInfo.h>
+
 void testCreature()
 {
+    cout << endl;
 
     Creature* testCreature = new Cloyster();
 
@@ -20,7 +24,7 @@ void testCreature()
 
     BattleMove* testMove = new MoveBlizzard();
 
-    testMove->Attack(*testCreature);
+    testMove->Attack(testCreature);
 
     testCreature->creatureInfo();
 
@@ -30,7 +34,7 @@ void testCreature()
     delete testMove;
     testMove = new MoveEmber();
 
-    testMove->Attack(*testCreature2);
+    testMove->Attack(testCreature2);
 
     testCreature2->creatureInfo();
 
@@ -38,6 +42,7 @@ void testCreature()
 
 void testTypes()
 {
+    cout << endl;
     CreatureTypes typeUtil;
 
     cout << endl;
@@ -54,6 +59,7 @@ void testTypes()
 
 void testMoves()
 {
+    cout << endl;
     BattleMove* testMove = new MoveBlizzard();
 
     testMove->ListParts();
@@ -66,6 +72,7 @@ void testMoves()
 
 void testStatBuffs()
 {
+    cout << endl;
     StatModifiers stat;
     stat.increaseByOneLevel(ATTACK);
 
@@ -85,13 +92,39 @@ void testStatBuffs()
     stat.debugDisplayBuffs();
 }
 
+void testBattle()
+{
+
+    cout << endl;
+    BattleManager bMgr;
+
+    Creature* poke1 = new Cloyster();
+    BattleInfo* bInfo1 = new BattleInfo();
+    Creature* poke2 = new Forretress();
+    BattleInfo* bInfo2 = new BattleInfo();
+
+    bInfo1->SetCurrentMove(new MoveBlizzard());
+    bInfo2->SetCurrentMove(new MoveEmber());
+
+
+    cout << "Testing BattleManager\n";
+
+    bMgr.SetCreature1(poke1, bInfo1);
+    bMgr.SetCreature2(poke2, bInfo2);
+
+    bMgr.Turn();
+
+}
+
 int main()
 {
-    testCreature();
+    //testCreature();
 
     //testTypes();
 
-    testMoves();
+    //testMoves();
 
     //testStatBuffs();
+
+    testBattle();
 }

@@ -51,12 +51,14 @@ public:
 	void setStat(Stats stat);
 
 	int getStat(Stats stat) const { return leveledStats[stat]; }
+	std::string getName() { return name; }
 
 	void damage(int value);
 	void applyStatus(std::string txt) {}
 
 	virtual ~Creature() {}
 	//virtual Creature* Clone() const = 0;
+
 };
 
 

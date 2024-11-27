@@ -1,6 +1,18 @@
 #include "BattleInfo.h"
 
 
+int BattleInfo::priority()
+{
+	int result = -1;
+
+	if (currentMove != nullptr)
+	{
+		result = currentMove->movePriority();
+	}
+
+	return result;
+}
+
 void BattleInfo::StatusEffectBeforeMove()
 {
 	if (statusEffect != nullptr)

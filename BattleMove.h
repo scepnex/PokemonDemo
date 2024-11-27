@@ -16,7 +16,7 @@ public:
 	MoveComponent() {}
 	virtual ~MoveComponent() {}
 
-	virtual void Apply(Types type, Creature& target) = 0;
+	virtual void Apply(Types type, Creature* target) = 0;
 	virtual void print() = 0;
 
 	bool operator == (const MoveComponent& rhs) const
@@ -33,7 +33,7 @@ protected:
 public:
 	Damage(int value) : power(value) {}
 
-	void Apply(Types type, Creature& target) override { target.damage(power); }
+	void Apply(Types type, Creature* target) override { target->damage(power); }
 	void print() override { cout << "Damage for " << power; }
 };
 
@@ -45,7 +45,7 @@ protected:
 public:
 	Effect(Status* _effect, int rate) : effect(_effect), successRate(rate) {}
 
-	void Apply(Types type, Creature& target) override { target.applyStatus("Effect applied."); }
+	void Apply(Types type, Creature* target) override { target->applyStatus("Effect applied."); }
 	void print() override { cout << "Effect success rate is " << successRate << '%'; }
 };
 
@@ -63,6 +63,7 @@ protected:
 	std::vector<MoveComponent*> elements;
 
 public:
+	std::string getName() { return name; }
 
 	int movePriority() { return priority; }
 
@@ -98,7 +99,7 @@ public:
 		cout << endl;
 	}
 
-	void Attack(Creature& target)
+	void Attack(Creature* target)
 	{
 		for (int i = 0; i < elements.size(); i++)
 		{

@@ -15,14 +15,18 @@ class BattleInfo
 
 	std::vector<VolatileStatus*> volatileStatuses;
 
-	BattleMove& currentMove;
+	BattleMove* currentMove;
 
 	StatModifiers statMods;
+
 public:
 
 	void StatusEffectBeforeMove();
 	void StatusEndOfTurn();
 
-	int priority() { return currentMove.movePriority(); }
+	void SetCurrentMove(BattleMove* move) { currentMove = move; }
+	BattleMove* GetCurrentMove() { return currentMove; }
+
+	int priority();
 };
 

@@ -2,7 +2,6 @@
 class Status
 {
 public:
-	Status () {}
 	virtual void OnApplyStatus() = 0;
 	virtual void OnRemoveStatus() = 0;
 	virtual void BeforeMove() = 0;
@@ -12,7 +11,6 @@ public:
 class SolidStatus : public Status
 {
 public:
-	SolidStatus() {}
 	void BeforeMove() override {}
 	void EndOfTurn() override {}
 	void OnApplyStatus() override {}
@@ -22,7 +20,6 @@ public:
 class VolatileStatus : public Status
 {
 public:
-	VolatileStatus() {}
 	void BeforeMove() override {}
 	void EndOfTurn() override {}
 	void OnApplyStatus() override {}
@@ -32,7 +29,6 @@ public:
 class Freeze : public SolidStatus
 {
 public:
-	//Freeze() {}
 
 	void BeforeMove() override 
 	{
@@ -45,7 +41,6 @@ public:
 class Paralyzed : public SolidStatus
 {
 public:
-	Paralyzed() {}
 	void BeforeMove() override
 	{
 		//chance of interrupt move
@@ -63,7 +58,6 @@ public:
 class Burn : public SolidStatus
 {
 public:
-	Burn() {}
 	void EndOfTurn() override
 	{
 		//apply burn damage
@@ -81,7 +75,6 @@ public:
 class Flinch : public VolatileStatus
 {
 public:
-	Flinch() {}
 	void BeforeMove() override
 	{
 		//chance of interrupt move
