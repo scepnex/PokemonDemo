@@ -1,4 +1,5 @@
 #include "BattleManager.h"
+#include "BattleMove.h"
 
 using namespace std;
 
@@ -8,27 +9,14 @@ static float randomFloat()
 	return (float)(rand()) / (float)(RAND_MAX);
 }
 
-void BattleManager::SetCreature1(Creature* p1, BattleInfo* b1)
+void BattleManager::SetCreature1(BattleInfo* b1)
 {
-	combatant1 = p1;
 	bInfo1 = b1;
-
-	if (combatant1 != nullptr)
-	{
-		combatant1->creatureInfo();
-	}
 }
 
-void BattleManager::SetCreature2(Creature* p2, BattleInfo* b2)
+void BattleManager::SetCreature2(BattleInfo* b2)
 {
-	combatant2 = p2;
 	bInfo2 = b2;
-
-	if (combatant2 != nullptr)
-	{
-		combatant2->creatureInfo();
-	}
-
 }
 
 bool BattleManager::DeterminePriority()
@@ -47,11 +35,11 @@ bool BattleManager::DeterminePriority()
 	else if (priority1 == priority2)
 	{
 		//speed comparison
-		if (combatant1->getStat(SPEED) < combatant2->getStat(SPEED))
+		if (bInfo1->getStat(SPEED) < bInfo2->getStat(SPEED))
 		{
 			moveOrder = false;
 		}
-		else if (combatant1->getStat(SPEED) == combatant2->getStat(SPEED))
+		else if (bInfo1->getStat(SPEED) == bInfo2->getStat(SPEED))
 		{
 			//choose random pokemon to go first
 			cout << "\n creatures are of equal speed, random first will be chosen (not implemented)\n";
@@ -64,9 +52,9 @@ void BattleManager::BeforeMoveStatusEffects(BattleInfo* activeInfo)
 	activeInfo->StatusEffectBeforeMove();
 }
 
-bool BattleManager::TryAttack(Creature* active, BattleInfo* activeInfo, Creature* target, BattleInfo* targetInfo)
+bool BattleManager::TryAttack(BattleInfo* activeInfo, BattleInfo* targetInfo)
 {
-	cout << active->getName() << " used " << activeInfo->GetCurrentMove()->getName() << ". ";
+	cout << activeInfo->getName() << " used " << activeInfo->GetCurrentMove()->getName() << ". ";
 	
 	bool result = false;
 	
@@ -83,9 +71,9 @@ bool BattleManager::TryAttack(Creature* active, BattleInfo* activeInfo, Creature
 	return result;
 }
 
-void BattleManager::ApplyAttack(Creature* active, BattleInfo* activeInfo, Creature* target, BattleInfo* targetInfo)
+void BattleManager::ApplyAttack(BattleInfo* activeInfo, BattleInfo* targetInfo)
 {
-	activeInfo->GetCurrentMove()->Attack(target);
+	activeInfo->GetCurrentMove()->Apply(activeInfo, targetInfo);
 
 	//cout << active->getName() << " attacked " << target->getName() << " with " << activeInfo->GetCurrentMove()->getName() << ".\n";
 }
@@ -97,19 +85,19 @@ void BattleManager::EndOfTurnStatus()
 }
 
 
-void BattleManager::CreatureTurn(Creature* active, BattleInfo* activeInfo, Creature* target, BattleInfo* targetInfo)
+void BattleManager::CreatureTurn(BattleInfo* activeInfo, BattleInfo* targetInfo)
 {
 
 	BeforeMoveStatusEffects(activeInfo);
 
-	if (TryAttack(active, activeInfo, target, targetInfo))
+	if (TryAttack(activeInfo, targetInfo))
 	{
 		cout << " Success!\n";
-		ApplyAttack(active, activeInfo, target, targetInfo);
+		ApplyAttack(activeInfo, targetInfo);
 	}
 	else
 	{
-		cout << active->getName() << " missed!\n";
+		cout << activeInfo->getName() << " missed!\n";
 	}
 }
 
@@ -122,16 +110,16 @@ void BattleManager::Turn()
 		//1 moves first
 		//2 moves second
 
-		CreatureTurn(combatant1, bInfo1, combatant2, bInfo2);
-		CreatureTurn(combatant2, bInfo2, combatant1, bInfo1);
+		CreatureTurn(bInfo1, bInfo2);
+		CreatureTurn(bInfo2, bInfo1);
 	}
 	else
 	{
 		//2 moves first
 		//1 moves second
 
-		CreatureTurn(combatant2, bInfo2, combatant1, bInfo1);
-		CreatureTurn(combatant1, bInfo1, combatant2, bInfo2);
+		CreatureTurn(bInfo2, bInfo1);
+		CreatureTurn(bInfo1, bInfo2);
 	}
 
 	EndOfTurnStatus();

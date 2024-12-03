@@ -8,8 +8,8 @@ MoveEmber::MoveEmber()
 	powerPoints = 25;
 	accuracy = 100.f;
 
-	AddComponent(new Damage(40));
-	AddComponent(new Effect(new Burn(), 10));
+	AddComponent(new Damage(40, attackType));
+	AddComponent(new StatusEffect(new Burn(), 10));
 }
 
 MoveBlizzard::MoveBlizzard()
@@ -20,6 +20,6 @@ MoveBlizzard::MoveBlizzard()
 	powerPoints = 5;
 	accuracy = 70.f;
 
-	AddComponent(new Damage(120));
-	AddComponent(new Effect(new Freeze(), 10));
+	AddComponent(new Damage(120, attackType));
+	AddComponent(new StatusEffect(new Freeze(), 10));
 }

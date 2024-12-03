@@ -1,5 +1,8 @@
 ﻿  BattleManager.cpp
-C:\Users\Gavin\source\repos\PokemonDemo\PokemonDemo\BattleMove.h(36,69): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Gavin\source\repos\PokemonDemo\PokemonDemo\BattleInfo.h(36,52): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'BattleManager.cpp')
+  
+C:\Users\Gavin\source\repos\PokemonDemo\PokemonDemo\BattleMove.h(39,79): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'BattleManager.cpp')
   
   PokemonDemo.vcxproj -> C:\Users\Gavin\source\repos\PokemonDemo\x64\Debug\PokemonDemo.exe

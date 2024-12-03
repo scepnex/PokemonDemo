@@ -77,6 +77,7 @@ void Creature::applyStatus(string txt)
 {
 	cout << txt << endl;
 }
+
 Cloyster::Cloyster()
 {
 	name = "Cloyster";

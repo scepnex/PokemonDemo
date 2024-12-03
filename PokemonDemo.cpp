@@ -24,7 +24,7 @@ void testCreature()
 
     BattleMove* testMove = new MoveBlizzard();
 
-    testMove->Attack(testCreature);
+    //testMove->Apply(testCreature);
 
     testCreature->creatureInfo();
 
@@ -34,7 +34,7 @@ void testCreature()
     delete testMove;
     testMove = new MoveEmber();
 
-    testMove->Attack(testCreature2);
+    //testMove->Apply(testCreature2);
 
     testCreature2->creatureInfo();
 
@@ -99,9 +99,9 @@ void testBattle()
     BattleManager bMgr;
 
     Creature* poke1 = new Cloyster();
-    BattleInfo* bInfo1 = new BattleInfo();
+    BattleInfo* bInfo1 = new BattleInfo(*poke1);
     Creature* poke2 = new Forretress();
-    BattleInfo* bInfo2 = new BattleInfo();
+    BattleInfo* bInfo2 = new BattleInfo(*poke2);
 
     bInfo1->SetCurrentMove(new MoveBlizzard());
     bInfo2->SetCurrentMove(new MoveEmber());
@@ -109,8 +109,8 @@ void testBattle()
 
     cout << "Testing BattleManager\n";
 
-    bMgr.SetCreature1(poke1, bInfo1);
-    bMgr.SetCreature2(poke2, bInfo2);
+    bMgr.SetCreature1(bInfo1);
+    bMgr.SetCreature2(bInfo2);
 
     bMgr.Turn();
 
@@ -120,7 +120,7 @@ int main()
 {
     srand(time(NULL));
 
-    //testCreature();
+    testCreature();
 
     //testTypes();
 

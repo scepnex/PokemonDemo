@@ -1,5 +1,5 @@
 #include "BattleInfo.h"
-
+#include "BattleMove.h"
 
 float BattleInfo::getStatMod(Stats stat)
 {
@@ -42,4 +42,25 @@ void BattleInfo::StatusEndOfTurn()
 	{
 		volatileStatuses[i]->EndOfTurn();
 	}
+}
+
+void BattleInfo::ApplyStatus(SolidStatus* effect)
+{
+	if (statusEffect == nullptr)
+	{
+		statusEffect = effect;
+	}
+}
+
+
+void BattleInfo::ApplyVolatileStatus(VolatileStatus* effect)
+{
+	// add a volatile status effect to the list
+}
+
+void BattleInfo::Damage(int value, Types type)
+{
+	//receive damage from a creature's attack
+	parent_.damage(value);
+	
 }

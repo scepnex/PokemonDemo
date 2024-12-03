@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <BattleInfo.h>
+
 
 using namespace std;
 
@@ -16,7 +18,7 @@ public:
 	MoveComponent() {}
 	virtual ~MoveComponent() {}
 
-	virtual void Apply(Types type, Creature* target) = 0;
+	virtual void Apply(BattleInfo* sender, BattleInfo* target) = 0;
 	virtual void print() = 0;
 
 	bool operator == (const MoveComponent& rhs) const
@@ -29,26 +31,46 @@ class Damage : public MoveComponent
 {
 protected:
 	float power = 0.f; // float type for ease of reading code. Use whole numbers for moves
+	Types moveType_ = TYPE_NONE;
 
 public:
-	Damage(float value) : power(value) {}
+	Damage(float value, Types moveType) : power(value), moveType_(moveType) {}
 
-	void Apply(Types type, Creature* target) override { target->damage(power); }
+	void Apply(BattleInfo* sender, BattleInfo* target) override { target->Damage(power, moveType_); }
 	void print() override { cout << "Damage for " << power; }
 };
 
-class Effect : public MoveComponent
+class StatusEffect : public MoveComponent
 {
 protected:
-	Status* effect;
+	SolidStatus* effect;
 	float successRate = 0.f;
 public:
-	Effect(Status* _effect, float rate) : effect(_effect), successRate(rate) {}
+	StatusEffect(SolidStatus* _effect, float rate) : effect(_effect), successRate(rate) {}
 
-	void Apply(Types type, Creature* target) override { target->applyStatus("Effect applied."); }
+	void Apply(BattleInfo* sender, BattleInfo* target) override
+	{
+		target->ApplyStatus(effect);
+	}
 	void print() override { cout << "Effect success rate is " << successRate << '%'; }
 };
 
+class VolatileEffect : public MoveComponent
+{
+protected:
+	VolatileStatus* effect;
+	float successRate = 0.f;
+public:
+	VolatileEffect(VolatileStatus* _effect, float rate) : effect(_effect), successRate(rate) {}
+
+	void Apply(BattleInfo* sender, BattleInfo* target) override
+	{
+		target->ApplyVolatileStatus(effect);
+	}
+	void print() override { cout << "Effect success rate is " << successRate << '%'; }
+};
+
+class BattleInfo;
 
 class BattleMove
 {
@@ -63,6 +85,7 @@ protected:
 	std::vector<MoveComponent*> elements;
 
 public:
+	BattleMove() {}
 	std::string getName() { return name; }
 
 	float getAccuracy() { return accuracy; }
@@ -100,11 +123,14 @@ public:
 		cout << endl;
 	}
 
-	void Attack(Creature* target)
+	void Apply(BattleInfo* sender, BattleInfo* target)
 	{
+		// accuracy check
+
+
 		for (int i = 0; i < elements.size(); i++)
 		{
-			elements[i]->Apply(attackType, target);
+			elements[i]->Apply(sender, target);
 		}
 	}
 };
