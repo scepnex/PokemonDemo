@@ -1,4 +1,4 @@
-#include "BattleMove.h"
+#include "Move.h"
 
 void Damage::Apply(BattleInfo* sender, BattleInfo* target)
 {
@@ -9,7 +9,7 @@ void Damage::Apply(BattleInfo* sender, BattleInfo* target)
 	target->Damage(int(result), moveType_);
 }
 
-MoveEmber::MoveEmber()
+MoveEmber::MoveEmber(BattleInfo& owner) : Move(owner)
 {
 	name = "Ember";;
 	battleEffect = "Basic FIRE attack.";
@@ -21,7 +21,7 @@ MoveEmber::MoveEmber()
 	AddComponent(new StatusEffect(new Burn(), 10));
 }
 
-MoveBlizzard::MoveBlizzard()
+MoveBlizzard::MoveBlizzard(BattleInfo& owner) : Move(owner)
 {
 	name = "Blizzard";
 	battleEffect = "Strongest ICE attack. Might Freeze Target.";

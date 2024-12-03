@@ -7,6 +7,7 @@
 #include <vector>
 #include <iostream>
 #include <BattleInfo.h>
+#include <MoveCommand.h>
 
 
 using namespace std;
@@ -70,22 +71,30 @@ public:
 	void print() override { cout << "Effect success rate is " << successRate << '%'; }
 };
 
-class BattleInfo;
 
-class BattleMove
+/*
+	
+
+*/
+class Move : public MoveCommand
 {
 protected:
 	std::string name;
 	std::string battleEffect;
+
 	Types attackType =	TYPE_NONE;
 	int powerPoints = 0;
 	float accuracy = 0.f;
 	int priority = 0;
 
 	std::vector<MoveComponent*> elements;
+	BattleInfo& owner_;
+	BattleInfo* target_ = nullptr;
+
+
 
 public:
-	BattleMove() {}
+	explicit Move(BattleInfo& owner) : owner_(owner) {}
 	std::string getName() { return name; }
 
 	float getAccuracy() { return accuracy; }
@@ -123,7 +132,7 @@ public:
 		cout << endl;
 	}
 
-	void Apply(BattleInfo* sender, BattleInfo* target)
+	void Execute(BattleInfo* sender, BattleInfo* target) const override
 	{
 		// accuracy check
 
@@ -135,14 +144,14 @@ public:
 	}
 };
 
-class MoveBlizzard : public BattleMove
+class MoveBlizzard : public Move
 {
 public:
-	MoveBlizzard();
+	MoveBlizzard(BattleInfo &owner);
 };
 
-class MoveEmber : public BattleMove
+class MoveEmber : public Move
 {
 public:
-	MoveEmber();
+	MoveEmber(BattleInfo& owner);
 };

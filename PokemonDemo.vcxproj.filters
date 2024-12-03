@@ -24,7 +24,7 @@
     <ClCompile Include="CreatureTypes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BattleMove.cpp">
+    <ClCompile Include="Move.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BattleInfo.cpp">
@@ -47,7 +47,7 @@
     <ClInclude Include="CreatureTypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BattleMove.h">
+    <ClInclude Include="Move.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BattleInfo.h">
@@ -63,6 +63,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UsefulFunctions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

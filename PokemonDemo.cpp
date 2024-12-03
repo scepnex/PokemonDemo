@@ -7,38 +7,38 @@ using namespace std;
 
 #include <creature.h>
 #include <CreatureTypes.h>
-#include <BattleMove.h>
+#include <Move.h>
 
 #include <StatModifiers.h>
 
 #include <BattleManager.h>
 #include <BattleInfo.h>
 
-void testCreature()
-{
-    cout << endl;
-
-    Creature* testCreature = new Cloyster();
-
-    testCreature->creatureInfo();
-
-    BattleMove* testMove = new MoveBlizzard();
-
-    //testMove->Apply(testCreature);
-
-    testCreature->creatureInfo();
-
-    Creature* testCreature2 = new Forretress();
-    testCreature2->creatureInfo();
-
-    delete testMove;
-    testMove = new MoveEmber();
-
-    //testMove->Apply(testCreature2);
-
-    testCreature2->creatureInfo();
-
-}
+//void testCreature()
+//{
+//    cout << endl;
+//
+//    Creature* testCreature = new Cloyster();
+//
+//    testCreature->creatureInfo();
+//
+//    Move* testMove = new MoveBlizzard(testCreature);
+//
+//    //testMove->Apply(testCreature);
+//
+//    testCreature->creatureInfo();
+//
+//    Creature* testCreature2 = new Forretress();
+//    testCreature2->creatureInfo();
+//
+//    delete testMove;
+//    testMove = new MoveEmber(testCreature2);
+//
+//    //testMove->Apply(testCreature2);
+//
+//    testCreature2->creatureInfo();
+//
+//}
 
 void testTypes()
 {
@@ -57,18 +57,18 @@ void testTypes()
     cout << "Bug vs Fairy: " << typeUtil.checkEffective(BUG, FAIRY) << endl;
 }
 
-void testMoves()
-{
-    cout << endl;
-    BattleMove* testMove = new MoveBlizzard();
-
-    testMove->ListParts();
-
-    delete testMove;
-
-    testMove = new MoveEmber();
-    testMove->ListParts();
-}
+//void testMoves()
+//{
+//    cout << endl;
+//    Move* testMove = new MoveBlizzard();
+//
+//    testMove->ListParts();
+//
+//    delete testMove;
+//
+//    testMove = new MoveEmber();
+//    testMove->ListParts();
+//}
 
 void testStatBuffs()
 {
@@ -103,8 +103,8 @@ void testBattle()
     Creature* poke2 = new Forretress();
     BattleInfo* bInfo2 = new BattleInfo(*poke2);
 
-    bInfo1->SetCurrentMove(new MoveBlizzard());
-    bInfo2->SetCurrentMove(new MoveEmber());
+    bInfo1->SetCurrentMove(new MoveBlizzard(*bInfo1));
+    bInfo2->SetCurrentMove(new MoveEmber(*bInfo2));
 
 
     cout << "Testing BattleManager\n";

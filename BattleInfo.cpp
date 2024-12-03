@@ -1,5 +1,5 @@
 #include "BattleInfo.h"
-#include "BattleMove.h"
+#include "Move.h"
 
 float BattleInfo::getStatMod(Stats stat)
 {

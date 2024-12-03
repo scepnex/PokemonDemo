@@ -8,10 +8,14 @@ private:
 	BattleInfo* bInfo1;
 	BattleInfo* bInfo2;
 
+
+
 public:
 
 	void SetCreature1(BattleInfo* b1);
 	void SetCreature2(BattleInfo* b2);
+
+
 
 	void Turn();
 	bool DeterminePriority();

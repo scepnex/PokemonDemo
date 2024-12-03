@@ -9,14 +9,14 @@
 #include <Status.h>
 #include <StatModifiers.h>
 
-class BattleMove;
+class Move;
 
 class BattleInfo
 {
 	Creature& parent_;
 
-	BattleMove* currentMove;
-	std::list<BattleMove*> creatureMoves;
+	Move* currentMove;
+	std::list<Move*> creatureMoves;
 	
 	SolidStatus* statusEffect;
 	std::vector<VolatileStatus*> volatileStatuses;
@@ -30,10 +30,10 @@ public:
 	void ApplyStatus(SolidStatus* effect);
 	void ApplyVolatileStatus(VolatileStatus* effect);
 
-	void SetCurrentMove(BattleMove* move) { currentMove = move; }
-	BattleMove* GetCurrentMove() { return currentMove; }
+	void SetCurrentMove(Move* move) { currentMove = move; }
+	Move* GetCurrentMove() { return currentMove; }
 
-	float getStat(Stats stat) { return parent_.getStat(stat); }
+	float getStat(Stats stat) { return float(parent_.getStat(stat)); }
 	float getStatMod(Stats stat);
 
 	std::string getName() { return parent_.getName(); }

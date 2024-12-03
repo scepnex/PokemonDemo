@@ -133,7 +133,7 @@
   <ItemGroup>
     <ClCompile Include="BattleInfo.cpp" />
     <ClCompile Include="BattleManager.cpp" />
-    <ClCompile Include="BattleMove.cpp" />
+    <ClCompile Include="Move.cpp" />
     <ClCompile Include="Creature.cpp" />
     <ClCompile Include="CreatureTypes.cpp" />
     <ClCompile Include="PokemonDemo.cpp" />
@@ -143,7 +143,8 @@
   <ItemGroup>
     <ClInclude Include="BattleInfo.h" />
     <ClInclude Include="BattleManager.h" />
-    <ClInclude Include="BattleMove.h" />
+    <ClInclude Include="Move.h" />
+    <ClInclude Include="MoveCommand.h" />
     <ClInclude Include="Creature.h" />
     <ClInclude Include="CreatureTypes.h" />
     <ClInclude Include="StatModifiers.h" />

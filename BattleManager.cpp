@@ -1,5 +1,5 @@
 #include "BattleManager.h"
-#include "BattleMove.h"
+#include "Move.h"
 
 using namespace std;
 
@@ -73,7 +73,7 @@ bool BattleManager::TryAttack(BattleInfo* activeInfo, BattleInfo* targetInfo)
 
 void BattleManager::ApplyAttack(BattleInfo* activeInfo, BattleInfo* targetInfo)
 {
-	activeInfo->GetCurrentMove()->Apply(activeInfo, targetInfo);
+	activeInfo->GetCurrentMove()->Execute(activeInfo, targetInfo);
 
 	//cout << active->getName() << " attacked " << target->getName() << " with " << activeInfo->GetCurrentMove()->getName() << ".\n";
 }
@@ -97,7 +97,7 @@ void BattleManager::CreatureTurn(BattleInfo* activeInfo, BattleInfo* targetInfo)
 	}
 	else
 	{
-		cout << "   " << activeInfo->getName() << " missed!\n";
+		cout << "    " << activeInfo->getName() << " missed!\n";
 	}
 }
 
