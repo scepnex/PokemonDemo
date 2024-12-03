@@ -23,12 +23,23 @@ class BattleInfo
 
 	StatModifiers statMods;
 
+	std::list<Status*> effectOnTurnStart;
+	std::list<Status*> effectBeforeMove;
+	std::list<Status*> effectAfterMove;
+	std::list<Status*> effectOnTurnEnd;
+	std::list<Status*> effectOnHitPhase;
+
 public:
 
 	BattleInfo(Creature& parent) : parent_(parent) { currentMove = nullptr; statusEffect = nullptr; }
 
 	void ApplyStatus(SolidStatus* effect);
 	void ApplyVolatileStatus(VolatileStatus* effect);
+
+	void AddTurnStartEffect(Status* effect) { effectOnTurnStart.push_back(effect); }
+
+	void AddBeforeMoveEffect(Status* effect) { effectBeforeMove.push_back(effect); }
+	void RemoveBeforeMoveEffect(Status* effect) { effectBeforeMove.remove(effect); }
 
 	void SetCurrentMove(Move* move) { currentMove = move; }
 	Move* GetCurrentMove() { return currentMove; }
@@ -41,8 +52,9 @@ public:
 	int priority();
 
 	void Damage(int value, Types type = TYPE_NONE);
-	void StatusEffectBeforeMove();
 	void OnDamage(Creature& sender) {}
 	void StatusEndOfTurn();
+
+	void StatusEffectsBeforeMove();
 };
 

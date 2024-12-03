@@ -18,17 +18,26 @@ int BattleInfo::priority()
 	return result;
 }
 
-void BattleInfo::StatusEffectBeforeMove()
+void BattleInfo::StatusEffectsBeforeMove()
 {
-	if (statusEffect != nullptr)
+	std::list<Status*>::iterator iterator = effectBeforeMove.begin();
+	while (iterator != effectBeforeMove.end())
 	{
-		statusEffect->BeforeMove();
+		(*iterator)->BeforeMove();
+		++iterator;
 	}
 
-	for (int i = 0; i < volatileStatuses.size(); i++)
-	{
-		volatileStatuses[i]->BeforeMove();
-	}
+
+
+	//if (statusEffect != nullptr)
+	//{
+	//	statusEffect->BeforeMove();
+	//}
+
+	//for (int i = 0; i < volatileStatuses.size(); i++)
+	//{
+	//	volatileStatuses[i]->BeforeMove();
+	//}
 }
 
 void BattleInfo::StatusEndOfTurn()
@@ -49,6 +58,7 @@ void BattleInfo::ApplyStatus(SolidStatus* effect)
 	if (statusEffect == nullptr)
 	{
 		statusEffect = effect;
+		effect->Attach(this);
 	}
 }
 

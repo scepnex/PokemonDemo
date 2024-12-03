@@ -92,7 +92,7 @@ protected:
 	BattleInfo& owner_;
 	BattleInfo* target_ = nullptr;
 
-
+	bool canceled_ = false;
 
 public:
 	explicit Move(BattleInfo& owner) : owner_(owner) {}
@@ -101,6 +101,8 @@ public:
 	float getAccuracy() { return accuracy; }
 	int movePriority() { return priority; }
 	int speedPriority() { return owner_.getStat(SPEED); }
+
+	void cancelMove() { canceled_ = true; }
 
 	void AddComponent(MoveComponent* comp)
 	{
@@ -157,21 +159,25 @@ public:
 
 	void Execute() override
 	{
-		// accuracy check
-		bool hit = AccuracyCheck();
-		if (hit)
+		owner_.StatusEffectsBeforeMove();
+
+		if (canceled_ == false)
 		{
-			for (int i = 0; i < elements.size(); i++)
+			// accuracy check
+			bool hit = AccuracyCheck();
+			if (hit)
 			{
-				elements[i]->Apply(&owner_, target_);
+				for (int i = 0; i < elements.size(); i++)
+				{
+					elements[i]->Apply(&owner_, target_);
+				}
+			}
+			else
+			{
+				//attack missed phase
+				cout << "    the attack missed!\n";
 			}
 		}
-		else
-		{
-			//attack missed phase
-			cout << "    the attack missed!\n";
-		}
-
 	}
 };
 

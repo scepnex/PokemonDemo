@@ -106,6 +106,8 @@ void testBattle()
     bInfo1->SetCurrentMove(new MoveBlizzard(*bInfo1));
     bInfo2->SetCurrentMove(new MoveEmber(*bInfo2));
 
+    SolidStatus* frozen = new Freeze();
+    bInfo2->ApplyStatus(frozen);
 
     cout << "Testing BattleManager\n";
 

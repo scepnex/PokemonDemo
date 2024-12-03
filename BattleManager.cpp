@@ -15,7 +15,7 @@ void BattleManager::SetCreature2(BattleInfo* b2)
 
 void BattleManager::BeforeMoveStatusEffects(BattleInfo* activeInfo)
 {
-	activeInfo->StatusEffectBeforeMove();
+	activeInfo->StatusEffectsBeforeMove();
 }
 
 void BattleManager::EndOfTurnStatus()
