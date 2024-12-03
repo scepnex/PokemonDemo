@@ -13,34 +13,6 @@ void BattleManager::SetCreature2(BattleInfo* b2)
 	bInfo2 = b2;
 }
 
-bool BattleManager::DeterminePriority()
-{
-	int priority1 = bInfo1->priority();
-	int priority2 = bInfo2->priority();
-
-	bool moveOrder = true; // true if p1 goes first, false if p2 goes first
-
-	//Determine who moves first
-	//based on move priority (quick attack, extremespeed, paralys
-	if (priority1 < priority2)
-	{
-		moveOrder = false;
-	}
-	else if (priority1 == priority2)
-	{
-		//speed comparison
-		if (bInfo1->getStat(SPEED) < bInfo2->getStat(SPEED))
-		{
-			moveOrder = false;
-		}
-		else if (bInfo1->getStat(SPEED) == bInfo2->getStat(SPEED))
-		{
-			//choose random pokemon to go first
-			cout << "\n creatures are of equal speed, random first will be chosen (not implemented)\n";
-		}
-	}
-	return moveOrder;
-}
 void BattleManager::BeforeMoveStatusEffects(BattleInfo* activeInfo)
 {
 	activeInfo->StatusEffectBeforeMove();
@@ -56,7 +28,7 @@ int BattleManager::SlowestPriority(int sorted_index)
 {
 	int min_index = -1;
 	Move* slowestMove = nullptr;
-	int n = moves.size();
+	int n = int(moves.size());
 	for (int i = 0; i < n; i++)
 	{
 		Move* curr = moves.front();

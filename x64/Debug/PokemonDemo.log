@@ -1,22 +1,7 @@
-﻿  BattleInfo.cpp
-C:\Users\Gavin\source\repos\PokemonDemo\PokemonDemo\Move.h(103,45): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
-  (compiling source file 'BattleInfo.cpp')
-  
-  BattleManager.cpp
+﻿  BattleManager.cpp
 C:\Users\Gavin\source\repos\PokemonDemo\PokemonDemo\Move.h(103,45): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'BattleManager.cpp')
   
-C:\Users\Gavin\source\repos\PokemonDemo\PokemonDemo\BattleManager.cpp(59,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Gavin\source\repos\PokemonDemo\PokemonDemo\BattleManager.cpp(115,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Gavin\source\repos\PokemonDemo\PokemonDemo\BattleManager.cpp(137,48): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-  Move.cpp
-C:\Users\Gavin\source\repos\PokemonDemo\PokemonDemo\Move.h(103,45): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
-  (compiling source file 'Move.cpp')
-  
-  PokemonDemo.cpp
-C:\Users\Gavin\source\repos\PokemonDemo\PokemonDemo\Move.h(103,45): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
-  (compiling source file 'PokemonDemo.cpp')
-  
-C:\Users\Gavin\source\repos\PokemonDemo\PokemonDemo\PokemonDemo.cpp(121,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Generating Code...
+C:\Users\Gavin\source\repos\PokemonDemo\PokemonDemo\BattleManager.cpp(87,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Gavin\source\repos\PokemonDemo\PokemonDemo\BattleManager.cpp(109,48): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
   PokemonDemo.vcxproj -> C:\Users\Gavin\source\repos\PokemonDemo\x64\Debug\PokemonDemo.exe
