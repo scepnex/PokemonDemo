@@ -100,6 +100,7 @@ public:
 
 	float getAccuracy() { return accuracy; }
 	int movePriority() { return priority; }
+	int speedPriority() { return owner_.getStat(SPEED); }
 
 	void AddComponent(MoveComponent* comp)
 	{
@@ -154,7 +155,7 @@ public:
 		return result;
 	}
 
-	void Execute(BattleInfo* sender, BattleInfo* target) override
+	void Execute() override
 	{
 		// accuracy check
 		bool hit = AccuracyCheck();
@@ -162,12 +163,13 @@ public:
 		{
 			for (int i = 0; i < elements.size(); i++)
 			{
-				elements[i]->Apply(sender, target);
+				elements[i]->Apply(&owner_, target_);
 			}
 		}
 		else
 		{
 			//attack missed phase
+			cout << "    the attack missed!\n";
 		}
 
 	}

@@ -98,7 +98,7 @@ Forretress::Forretress()
 	type1 = BUG;
 	type2 = STEEL;
 
-	setBaseStats(75, 90, 140, 60, 60, 40);
+	setBaseStats(75, 90, 140, 60, 60, 80);
 	setStats();
 
 }

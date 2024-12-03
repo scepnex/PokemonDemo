@@ -3,12 +3,6 @@
 
 using namespace std;
 
-static float randomFloat()
-{
-	rand(); // we added a call to rand here because i did not feel like dealing with a better solution for c++ randomness
-	return (float)(rand()) / (float)(RAND_MAX);
-}
-
 void BattleManager::SetCreature1(BattleInfo* b1)
 {
 	bInfo1 = b1;
@@ -52,81 +46,121 @@ void BattleManager::BeforeMoveStatusEffects(BattleInfo* activeInfo)
 	activeInfo->StatusEffectBeforeMove();
 }
 
-//bool BattleManager::TryAttack(BattleInfo* activeInfo, BattleInfo* targetInfo)
-//{
-//	cout << activeInfo->getName() << " used " << activeInfo->GetCurrentMove()->getName() << ".\n";
-//	
-//	//bool result = false;
-//	//
-//	//float moveAcc = activeInfo->GetCurrentMove()->getAccuracy();
-//	//float modifierTotal = activeInfo->getStatMod(ACCURACY) * targetInfo->getStatMod(EVASION);
-//
-//	//float accuracyRoll = randomFloat() * 100.f;
-//	//
-//	//float modifierCalc = moveAcc * modifierTotal;
-//	//result = accuracyRoll <= modifierCalc;
-//
-//	//cout << "    Accuracy roll: " << accuracyRoll << " <= " << modifierCalc << endl;
-//
-//
-//
-//	//return result;
-//	return true;
-//}
-
-//void BattleManager::ApplyAttack(BattleInfo* activeInfo, BattleInfo* targetInfo)
-//{
-//	activeInfo->GetCurrentMove()->Execute(activeInfo, targetInfo);
-//
-//	//cout << active->getName() << " attacked " << target->getName() << " with " << activeInfo->GetCurrentMove()->getName() << ".\n";
-//}
-
 void BattleManager::EndOfTurnStatus()
 {
 	bInfo1->StatusEndOfTurn();
 	bInfo2->StatusEndOfTurn();
 }
 
-
-void BattleManager::CreatureTurn(BattleInfo* activeInfo, BattleInfo* targetInfo)
+int BattleManager::SlowestPriority(int sorted_index)
 {
+	int min_index = -1;
+	Move* slowestMove = nullptr;
+	int n = moves.size();
+	for (int i = 0; i < n; i++)
+	{
+		Move* curr = moves.front();
+		moves.pop();
 
-	BeforeMoveStatusEffects(activeInfo);
+		if (slowestMove == nullptr)
+		{
+			min_index = i;
+			slowestMove = curr;
+		}
 
-	activeInfo->GetCurrentMove()->SetTarget(targetInfo);
+		else
+		{
+			int currPriority = curr->movePriority();
+			int slowestPriority = slowestMove->movePriority();
+			if (currPriority == slowestPriority && i <= sorted_index)
+			{
+				//Speed breaks tie between same priority moves
+				int currSpeed = curr->speedPriority();
+				int slowestSpeed = slowestMove->speedPriority();
+				if (currSpeed == slowestSpeed)
+				{
+					//move priority and speed priority are equal, so choose random move to go last
+					float coinFlip = UsefulFunctions::randomFloat();
 
-	activeInfo->GetCurrentMove()->Execute(activeInfo, targetInfo);
+					cout << "move priority decided randomly: " << coinFlip << endl;
 
-	//if (TryAttack(activeInfo, targetInfo))
-	//{
-	//	cout << "    Success!\n";
-	//	ApplyAttack(activeInfo, targetInfo);
-	//}
-	//else
-	//{
-	//	cout << "    " << activeInfo->getName() << " missed!\n";
-	//}
+					if (coinFlip <= 0.5f)
+					{
+						min_index = i;
+						slowestMove = curr;
+					}
+
+				}
+				else if (currSpeed < slowestSpeed)
+				{
+					min_index = i;
+					slowestMove = curr;
+				}
+			}
+			else if (currPriority < slowestPriority && i <= sorted_index)
+			{
+				min_index = i;
+				slowestMove = curr;
+			}
+		}
+
+		moves.push(curr);
+	}
+	return min_index;
+}
+
+void BattleManager::SlowestMoveToRearOfQueue(int min_index)
+{
+	Move* slowest;
+	int n = moves.size();
+
+	for (int i = 0; i < n; i++)
+	{
+		Move* curr = moves.front();
+		moves.pop();
+		if (i != min_index)
+		{
+			moves.push(curr);
+		}
+		else
+		{
+			slowest = curr;
+		}
+	}
+	moves.push(slowest);
+}
+
+void BattleManager::SortMoveQueue()
+{
+	for (int i = 0; i < moves.size(); i++)
+	{
+		int min_index = SlowestPriority(moves.size() - i);
+		SlowestMoveToRearOfQueue(min_index);
+	}
 }
 
 void BattleManager::Turn()
 {
-	bool moveOrder = DeterminePriority();
+	BeforeTurnStatus();
 
-	if (moveOrder)
+	//bool moveOrder = DeterminePriority();
+
+	//1 vs 1 Move target hack solution for now
+	bInfo1->GetCurrentMove()->SetTarget(bInfo2);
+	bInfo2->GetCurrentMove()->SetTarget(bInfo1);
+
+	// add moves to queue
+	moves.push(bInfo1->GetCurrentMove());
+	moves.push(bInfo2->GetCurrentMove());
+
+	//sort queue of moves
+	SortMoveQueue();
+
+	//process queue in order
+	while (moves.empty() == false)
 	{
-		//1 moves first
-		//2 moves second
-
-		CreatureTurn(bInfo1, bInfo2);
-		CreatureTurn(bInfo2, bInfo1);
-	}
-	else
-	{
-		//2 moves first
-		//1 moves second
-
-		CreatureTurn(bInfo2, bInfo1);
-		CreatureTurn(bInfo1, bInfo2);
+		moves.front()->Execute();
+		moves.pop();
 	}
 
 	EndOfTurnStatus();

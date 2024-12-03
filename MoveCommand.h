@@ -3,10 +3,8 @@
  */
 #pragma once
 
-class BattleInfo;
-
 class MoveCommand {
 public:
 	virtual ~MoveCommand() {}
-	virtual void Execute(BattleInfo* sender, BattleInfo* target) = 0;
+	virtual void Execute() = 0;
 };

@@ -28,6 +28,7 @@ MoveBlizzard::MoveBlizzard(BattleInfo& owner) : Move(owner)
 	attackType = ICE;
 	powerPoints = 5;
 	accuracy = 70.f;
+	priority = 0;
 
 	AddComponent(new Damage(120, attackType));
 	AddComponent(new StatusEffect(new Freeze(), 10));
