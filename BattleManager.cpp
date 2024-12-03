@@ -54,7 +54,7 @@ void BattleManager::BeforeMoveStatusEffects(BattleInfo* activeInfo)
 
 bool BattleManager::TryAttack(BattleInfo* activeInfo, BattleInfo* targetInfo)
 {
-	cout << activeInfo->getName() << " used " << activeInfo->GetCurrentMove()->getName() << ". ";
+	cout << activeInfo->getName() << " used " << activeInfo->GetCurrentMove()->getName() << ".\n";
 	
 	bool result = false;
 	
@@ -66,7 +66,7 @@ bool BattleManager::TryAttack(BattleInfo* activeInfo, BattleInfo* targetInfo)
 	float modifierCalc = moveAcc * modifierTotal;
 	result = accuracyRoll <= modifierCalc;
 
-	cout << accuracyRoll << " <= " << modifierCalc << endl;
+	cout << "    Accuracy roll: " << accuracyRoll << " <= " << modifierCalc << endl;
 
 	return result;
 }
@@ -92,12 +92,12 @@ void BattleManager::CreatureTurn(BattleInfo* activeInfo, BattleInfo* targetInfo)
 
 	if (TryAttack(activeInfo, targetInfo))
 	{
-		cout << " Success!\n";
+		cout << "    Success!\n";
 		ApplyAttack(activeInfo, targetInfo);
 	}
 	else
 	{
-		cout << activeInfo->getName() << " missed!\n";
+		cout << "   " << activeInfo->getName() << " missed!\n";
 	}
 }
 

@@ -69,7 +69,7 @@ void Creature::setStat(Stats stat)
 
 void Creature::damage(int value)
 {
-	cout << name << " damaged for " << value << "\n";
+	cout << "    " << name << " damaged for " << value << "\n";
 	currentHealth -= value;
 }
 

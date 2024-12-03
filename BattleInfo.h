@@ -25,7 +25,7 @@ class BattleInfo
 
 public:
 
-	BattleInfo(Creature& parent) : parent_(parent) { currentMove = nullptr; statusEffect = nullptr; parent.creatureInfo(); }
+	BattleInfo(Creature& parent) : parent_(parent) { currentMove = nullptr; statusEffect = nullptr; }
 
 	void ApplyStatus(SolidStatus* effect);
 	void ApplyVolatileStatus(VolatileStatus* effect);
