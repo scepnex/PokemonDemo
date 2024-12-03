@@ -4,26 +4,37 @@ class Status
 public:
 	virtual void OnApplyStatus() = 0;
 	virtual void OnRemoveStatus() = 0;
+
+	virtual void OnStartTurn() = 0;
 	virtual void BeforeMove() = 0;
+	virtual void AfterMove() = 0;
 	virtual void EndOfTurn() = 0;
+	virtual void OnHitPhase() = 0;
+
 };
 
 class SolidStatus : public Status
 {
 public:
-	void BeforeMove() override {}
-	void EndOfTurn() override {}
-	void OnApplyStatus() override {}
-	void OnRemoveStatus() override {}
+	void OnApplyStatus() {}
+	void OnRemoveStatus() {}
+	void OnStartTurn() {}
+	void BeforeMove() {}
+	void AfterMove() {}
+	void EndOfTurn() {}
+	void OnHitPhase() {}
 };
 
 class VolatileStatus : public Status
 {
 public:
-	void BeforeMove() override {}
-	void EndOfTurn() override {}
-	void OnApplyStatus() override {}
-	void OnRemoveStatus() override {}
+	void OnApplyStatus() {}
+	void OnRemoveStatus() {}
+	void OnStartTurn() {}
+	void BeforeMove() {}
+	void AfterMove() {}
+	void EndOfTurn() {}
+	void OnHitPhase() {}
 };
 
 class Freeze : public SolidStatus

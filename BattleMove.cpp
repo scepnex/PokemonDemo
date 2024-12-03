@@ -1,5 +1,14 @@
 #include "BattleMove.h"
 
+void Damage::Apply(BattleInfo* sender, BattleInfo* target)
+{
+	float result = 2.2f * power * sender->getStat(ATTACK) / target->getStat(DEFENSE);
+
+
+	
+	target->Damage(int(result), moveType_);
+}
+
 MoveEmber::MoveEmber()
 {
 	name = "Ember";;

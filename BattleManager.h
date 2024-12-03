@@ -1,6 +1,5 @@
 #pragma once
 
-#include <Creature.h>
 #include <BattleInfo.h>
 
 class BattleManager

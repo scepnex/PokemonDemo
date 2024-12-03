@@ -36,7 +36,7 @@ protected:
 public:
 	Damage(float value, Types moveType) : power(value), moveType_(moveType) {}
 
-	void Apply(BattleInfo* sender, BattleInfo* target) override { target->Damage(power, moveType_); }
+	void Apply(BattleInfo* sender, BattleInfo* target) override;
 	void print() override { cout << "Damage for " << power; }
 };
 

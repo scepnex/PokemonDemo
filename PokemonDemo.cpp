@@ -120,7 +120,7 @@ int main()
 {
     srand(time(NULL));
 
-    testCreature();
+    //testCreature();
 
     //testTypes();
 
