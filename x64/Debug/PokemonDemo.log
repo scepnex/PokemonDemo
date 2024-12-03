@@ -1,3 +1,2 @@
-﻿  PokemonDemo.cpp
-C:\Users\Gavin\source\repos\PokemonDemo\PokemonDemo\PokemonDemo.cpp(121,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+﻿  BattleManager.cpp
   PokemonDemo.vcxproj -> C:\Users\Gavin\source\repos\PokemonDemo\x64\Debug\PokemonDemo.exe

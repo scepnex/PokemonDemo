@@ -52,31 +52,34 @@ void BattleManager::BeforeMoveStatusEffects(BattleInfo* activeInfo)
 	activeInfo->StatusEffectBeforeMove();
 }
 
-bool BattleManager::TryAttack(BattleInfo* activeInfo, BattleInfo* targetInfo)
-{
-	cout << activeInfo->getName() << " used " << activeInfo->GetCurrentMove()->getName() << ".\n";
-	
-	bool result = false;
-	
-	float moveAcc = activeInfo->GetCurrentMove()->getAccuracy();
-	float modifierTotal = activeInfo->getStatMod(ACCURACY) * targetInfo->getStatMod(EVASION);
+//bool BattleManager::TryAttack(BattleInfo* activeInfo, BattleInfo* targetInfo)
+//{
+//	cout << activeInfo->getName() << " used " << activeInfo->GetCurrentMove()->getName() << ".\n";
+//	
+//	//bool result = false;
+//	//
+//	//float moveAcc = activeInfo->GetCurrentMove()->getAccuracy();
+//	//float modifierTotal = activeInfo->getStatMod(ACCURACY) * targetInfo->getStatMod(EVASION);
+//
+//	//float accuracyRoll = randomFloat() * 100.f;
+//	//
+//	//float modifierCalc = moveAcc * modifierTotal;
+//	//result = accuracyRoll <= modifierCalc;
+//
+//	//cout << "    Accuracy roll: " << accuracyRoll << " <= " << modifierCalc << endl;
+//
+//
+//
+//	//return result;
+//	return true;
+//}
 
-	float accuracyRoll = randomFloat() * 100.f;
-	
-	float modifierCalc = moveAcc * modifierTotal;
-	result = accuracyRoll <= modifierCalc;
-
-	cout << "    Accuracy roll: " << accuracyRoll << " <= " << modifierCalc << endl;
-
-	return result;
-}
-
-void BattleManager::ApplyAttack(BattleInfo* activeInfo, BattleInfo* targetInfo)
-{
-	activeInfo->GetCurrentMove()->Execute(activeInfo, targetInfo);
-
-	//cout << active->getName() << " attacked " << target->getName() << " with " << activeInfo->GetCurrentMove()->getName() << ".\n";
-}
+//void BattleManager::ApplyAttack(BattleInfo* activeInfo, BattleInfo* targetInfo)
+//{
+//	activeInfo->GetCurrentMove()->Execute(activeInfo, targetInfo);
+//
+//	//cout << active->getName() << " attacked " << target->getName() << " with " << activeInfo->GetCurrentMove()->getName() << ".\n";
+//}
 
 void BattleManager::EndOfTurnStatus()
 {
@@ -90,15 +93,19 @@ void BattleManager::CreatureTurn(BattleInfo* activeInfo, BattleInfo* targetInfo)
 
 	BeforeMoveStatusEffects(activeInfo);
 
-	if (TryAttack(activeInfo, targetInfo))
-	{
-		cout << "    Success!\n";
-		ApplyAttack(activeInfo, targetInfo);
-	}
-	else
-	{
-		cout << "    " << activeInfo->getName() << " missed!\n";
-	}
+	activeInfo->GetCurrentMove()->SetTarget(targetInfo);
+
+	activeInfo->GetCurrentMove()->Execute(activeInfo, targetInfo);
+
+	//if (TryAttack(activeInfo, targetInfo))
+	//{
+	//	cout << "    Success!\n";
+	//	ApplyAttack(activeInfo, targetInfo);
+	//}
+	//else
+	//{
+	//	cout << "    " << activeInfo->getName() << " missed!\n";
+	//}
 }
 
 void BattleManager::Turn()

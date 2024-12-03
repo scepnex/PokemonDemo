@@ -8,6 +8,7 @@
 #include <iostream>
 #include <BattleInfo.h>
 #include <MoveCommand.h>
+#include <UsefulFunctions.h>
 
 
 using namespace std;
@@ -105,6 +106,8 @@ public:
 		elements.push_back(comp);
 	}
 
+	void SetTarget(BattleInfo* target) { target_ = target; }
+
 	void print()
 	{
 		cout << "Name: " << name << endl;
@@ -132,15 +135,41 @@ public:
 		cout << endl;
 	}
 
-	void Execute(BattleInfo* sender, BattleInfo* target) const override
+	bool AccuracyCheck()
+	{
+		cout << owner_.getName() << " used " << name << "!\n";
+
+		bool result = false;
+
+		float modifierTotal = owner_.getStatMod(ACCURACY) * target_->getStatMod(EVASION);
+
+		float accuracyRoll = UsefulFunctions::randomFloat() * 100.f;
+
+		float modifierCalc = accuracy * modifierTotal;
+
+		result = accuracyRoll <= modifierCalc;
+
+		cout << "    Accuracy roll: " << accuracyRoll << " <= " << modifierCalc << endl;
+
+		return result;
+	}
+
+	void Execute(BattleInfo* sender, BattleInfo* target) override
 	{
 		// accuracy check
-
-
-		for (int i = 0; i < elements.size(); i++)
+		bool hit = AccuracyCheck();
+		if (hit)
 		{
-			elements[i]->Apply(sender, target);
+			for (int i = 0; i < elements.size(); i++)
+			{
+				elements[i]->Apply(sender, target);
+			}
 		}
+		else
+		{
+			//attack missed phase
+		}
+
 	}
 };
 
