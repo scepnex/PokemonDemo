@@ -1,5 +1,5 @@
-﻿  BattleInfo.cpp
-C:\Users\Gavin\source\repos\PokemonDemo\PokemonDemo\Move.h(103,45): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
-  (compiling source file 'BattleInfo.cpp')
+﻿  Move.cpp
+C:\Users\Gavin\source\repos\PokemonDemo\PokemonDemo\Move.h(108,45): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'Move.cpp')
   
   PokemonDemo.vcxproj -> C:\Users\Gavin\source\repos\PokemonDemo\x64\Debug\PokemonDemo.exe

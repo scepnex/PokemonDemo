@@ -1,11 +1,14 @@
 #pragma once
 
+#include <string>
+
 class BattleInfo;
 
 class Status
 {
 protected:
 	BattleInfo* appliedTo_;
+	std::string name_;
 
 public:
 	virtual ~Status() {}
@@ -21,6 +24,8 @@ public:
 	virtual void AfterMove() = 0;
 	virtual void EndOfTurn() = 0;
 	virtual void OnHitPhase() = 0;
+
+	std::string getName() { return name_; }
 
 };
 
@@ -57,7 +62,7 @@ public:
 class Freeze : public SolidStatus
 {
 public:
-
+	Freeze() { name_ = "Freeze"; }
 	void Attach(BattleInfo* appliedTo) override;
 	void Detach(BattleInfo* appliedTo) override;
 
@@ -87,6 +92,7 @@ public:
 class Burn : public SolidStatus
 {
 public:
+	Burn() { name_ = "Burn"; }
 	void Attach(BattleInfo* appliedTo) override {}
 	void Detach(BattleInfo* appliedTo) override {}
 

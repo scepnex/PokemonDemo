@@ -52,7 +52,12 @@ public:
 
 	void Apply(BattleInfo* sender, BattleInfo* target) override
 	{
-		target->ApplyStatus(effect);
+		float chance = UsefulFunctions::randomFloat();
+
+		if (chance <= successRate)
+		{
+			target->ApplyStatus(effect);
+		}
 	}
 	void print() override { cout << "Effect success rate is " << successRate << '%'; }
 };

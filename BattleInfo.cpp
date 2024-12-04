@@ -55,8 +55,11 @@ void BattleInfo::StatusEndOfTurn()
 
 void BattleInfo::ApplyStatus(SolidStatus* effect)
 {
+
 	if (statusEffect == nullptr)
 	{
+
+		cout << getName() << " has been afflicted with " << effect->getName() << endl;
 		statusEffect = effect;
 		effect->Attach(this);
 	}

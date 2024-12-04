@@ -18,7 +18,7 @@ MoveEmber::MoveEmber(BattleInfo& owner) : Move(owner)
 	accuracy = 100.f;
 
 	AddComponent(new Damage(40, attackType));
-	AddComponent(new StatusEffect(new Burn(), 10));
+	AddComponent(new StatusEffect(new Burn(), 0.1f));
 }
 
 MoveBlizzard::MoveBlizzard(BattleInfo& owner) : Move(owner)
@@ -31,5 +31,5 @@ MoveBlizzard::MoveBlizzard(BattleInfo& owner) : Move(owner)
 	priority = 0;
 
 	AddComponent(new Damage(120, attackType));
-	AddComponent(new StatusEffect(new Freeze(), 10));
+	AddComponent(new StatusEffect(new Freeze(), 0.1f));
 }
