@@ -69,16 +69,16 @@ public:
 	void BeforeMove() override;
 };
 
-class Paralyzed : public SolidStatus
-{
-public:
-	void Attach(BattlePkmn* appliedTo) override;
-	void Detach(BattlePkmn* appliedTo) override;
-
-	void BeforeMove() override;
-	void OnApplyStatus() override;
-	void OnRemoveStatus() override;
-};
+//class Paralyzed : public SolidStatus
+//{
+//public:
+//	void Attach(BattlePkmn* appliedTo) override;
+//	void Detach(BattlePkmn* appliedTo) override;
+//
+//	void BeforeMove() override;
+//	void OnApplyStatus() override;
+//	void OnRemoveStatus() override;
+//};
 
 class Burn : public SolidStatus
 {
@@ -90,6 +90,18 @@ public:
 	void EndOfTurn() override;
 	void OnApplyStatus() override;
 	void OnRemoveStatus() override;
+};
+
+class FocusPunchStatus : public VolatileStatus
+{
+public:
+	FocusPunchStatus() { name_ = "Focus Punch status"; }
+	void Attach(BattlePkmn* appliedTo) override;
+	void Detach(BattlePkmn* appliedTo) override;
+
+	void OnStartTurn() override;
+	void OnHitPhase() override;
+	void BeforeMove() override;
 };
 
 //class Flinch : public VolatileStatus

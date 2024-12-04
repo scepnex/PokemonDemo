@@ -52,3 +52,38 @@ void Burn::OnRemoveStatus()
 {
 	//remove burn debuff
 }
+void FocusPunchStatus::Attach(BattlePkmn* appliedTo)
+{
+	appliedTo_ = appliedTo;
+	appliedTo->AddTurnStartEffect(this);
+	appliedTo->AddBeforeMoveEffect(this);
+	appliedTo->AddOnHitEffect(this);
+
+}
+void FocusPunchStatus::Detach(BattlePkmn* appliedTo)
+{
+	appliedTo_ = nullptr;
+	appliedTo->RemoveTurnStartEffect(this);
+	appliedTo->RemoveBeforeMoveEffect(this);
+	appliedTo->RemoveOnHitEffect(this);
+
+}
+
+void FocusPunchStatus::OnStartTurn()
+{
+	//focus punch message
+	cout << appliedTo_->getName() << " is focusing..." << endl;
+}
+
+void FocusPunchStatus::OnHitPhase()
+{
+	appliedTo_->GetCurrentMove()->cancelMove();
+}
+
+void FocusPunchStatus::BeforeMove()
+{
+	if (appliedTo_->GetCurrentMove()->getCanceled())
+	{
+		cout << appliedTo_->getName() << " lost focus!\n";
+	}
+}

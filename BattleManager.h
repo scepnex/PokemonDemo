@@ -8,8 +8,8 @@ class Move;
 class BattleManager
 {
 private:
-	BattlePkmn* bInfo1;
-	BattlePkmn* bInfo2;
+	BattlePkmn* bInfo1 = nullptr;
+	BattlePkmn* bInfo2 = nullptr;
 
 	std::queue<Move*> moves;
 
@@ -25,7 +25,7 @@ public:
 	void Turn();
 	void BeforeMoveStatusEffects(BattlePkmn* activeInfo);
 
-	void BeforeTurnStatus() {}
+	void StartTurnStatus();
 	void EndOfTurnStatus();
 
 };

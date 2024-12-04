@@ -94,6 +94,7 @@ void testStatBuffs()
 
 void testBattle()
 {
+    cout << "Testing BattleManager\n";
 
     cout << endl;
     BattleManager bMgr;
@@ -105,9 +106,9 @@ void testBattle()
 
     bInfo1->SetCurrentMove(new MoveBlizzard(*bInfo1));
     bInfo2->SetCurrentMove(new MoveEmber(*bInfo2));
+    bInfo1->SetCurrentMove(new MoveFocusPunch(*bInfo1));
 
 
-    cout << "Testing BattleManager\n";
 
     bMgr.SetCreature1(bInfo1);
     bMgr.SetCreature2(bInfo2);

@@ -7,6 +7,7 @@ void Damage::Apply(BattlePkmn* sender, BattlePkmn* target)
 
 	
 	target->Damage(int(result), moveType_);
+	target->OnDamage(sender);
 }
 
 MoveEmber::MoveEmber(BattlePkmn& owner) : Move(owner)
@@ -32,4 +33,23 @@ MoveBlizzard::MoveBlizzard(BattlePkmn& owner) : Move(owner)
 
 	AddComponent(new Damage(120, attackType));
 	AddComponent(new StatusEffect(new Freeze(), 0.7f));
+}
+
+void MoveFocusPunch::onSelectMove()
+{
+	owner_.ApplyVolatileStatus(new FocusPunchStatus());
+}
+
+MoveFocusPunch::MoveFocusPunch(BattlePkmn& owner) : Move(owner)
+{
+	name = "Focus Punch";
+	battleEffect = "The user focuses its mind before launching a punch. It will fail if the user is hit before it is used";
+	attackType = FIGHTING;
+	powerPoints = 20;
+	accuracy = 100.f;
+	priority = -3;
+
+	AddComponent(new Damage(150, attackType));
+
+	onSelectMove();
 }

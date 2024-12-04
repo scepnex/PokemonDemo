@@ -18,6 +18,16 @@ int BattlePkmn::priority()
 	return result;
 }
 
+void BattlePkmn::StatusEffectsOnTurnStart()
+{
+	std::list<Status*>::iterator iterator = effectOnTurnStart.begin();
+	while (iterator != effectOnTurnStart.end())
+	{
+		(*iterator)->BeforeMove();
+		++iterator;
+	}
+}
+
 void BattlePkmn::StatusEffectsBeforeMove()
 {
 	std::list<Status*>::iterator iterator = effectBeforeMove.begin();
@@ -39,13 +49,19 @@ void BattlePkmn::StatusEffectsEndOfTurn()
 		++iterator;
 	}
 }
-
+void BattlePkmn::StatusEffectsOnHitPhase()
+{
+	std::list<Status*>::iterator iterator = effectOnHitPhase.begin();
+	while (iterator != effectOnHitPhase.end())
+	{
+		(*iterator)->OnHitPhase();
+		++iterator;
+	}
+}
 void BattlePkmn::ApplyStatus(SolidStatus* effect)
 {
-
 	if (statusEffect == nullptr)
 	{
-
 		cout << getName() << " has been afflicted with " << effect->getName() << endl;
 		statusEffect = effect;
 		effect->Attach(this);
@@ -56,6 +72,9 @@ void BattlePkmn::ApplyStatus(SolidStatus* effect)
 void BattlePkmn::ApplyVolatileStatus(VolatileStatus* effect)
 {
 	// add a volatile status effect to the list
+	cout << getName() << " got status " << effect->getName() << endl;
+	volatileStatuses.push_back(effect);
+	effect->Attach(this);
 }
 
 void BattlePkmn::Damage(int value, Types type)

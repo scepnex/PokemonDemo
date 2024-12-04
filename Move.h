@@ -107,7 +107,9 @@ public:
 	int movePriority() { return priority; }
 	int speedPriority() { return owner_.getStat(SPEED); }
 
+	virtual void onSelectMove() {}
 	void cancelMove() { canceled_ = true; }
+	bool getCanceled() { return canceled_; }
 
 	void AddComponent(MoveComponent* comp)
 	{
@@ -165,7 +167,6 @@ public:
 	void Execute() override
 	{
 		owner_.StatusEffectsBeforeMove();
-
 		if (canceled_ == false)
 		{
 			// accuracy check
@@ -196,4 +197,11 @@ class MoveEmber : public Move
 {
 public:
 	MoveEmber(BattlePkmn& owner);
+};
+
+class MoveFocusPunch : public Move
+{
+public:
+	MoveFocusPunch(BattlePkmn& owner);
+	void onSelectMove() override;
 };

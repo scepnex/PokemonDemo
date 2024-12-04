@@ -13,6 +13,13 @@ void BattleManager::SetCreature2(BattlePkmn* b2)
 	bInfo2 = b2;
 }
 
+void BattleManager::StartTurnStatus()
+{
+	bInfo1->StatusEffectsOnTurnStart();
+	bInfo2->StatusEffectsOnTurnStart();
+
+}
+
 void BattleManager::BeforeMoveStatusEffects(BattlePkmn* activeInfo)
 {
 	activeInfo->StatusEffectsBeforeMove();
@@ -113,13 +120,12 @@ void BattleManager::SortMoveQueue()
 
 void BattleManager::Turn()
 {
-	BeforeTurnStatus();
-
-	//bool moveOrder = DeterminePriority();
-
 	//1 vs 1 Move target hack solution for now
 	bInfo1->GetCurrentMove()->SetTarget(bInfo2);
 	bInfo2->GetCurrentMove()->SetTarget(bInfo1);
+
+
+	StartTurnStatus();
 
 	// add moves to queue
 	moves.push(bInfo1->GetCurrentMove());

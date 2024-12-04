@@ -19,7 +19,7 @@ class BattlePkmn
 	std::list<Move*> creatureMoves;
 	
 	SolidStatus* statusEffect;
-	std::vector<VolatileStatus*> volatileStatuses;
+	std::list<VolatileStatus*> volatileStatuses;
 
 	StatModifiers statMods;
 
@@ -45,6 +45,9 @@ public:
 	void AddEndOfTurnEffect(Status* effect) { effectOnTurnEnd.push_back(effect); }
 	void RemoveEndOfTurnEffect(Status* effect) { effectOnTurnEnd.remove(effect); }
 
+	void AddOnHitEffect(Status* effect) { effectOnHitPhase.push_back(effect); }
+	void RemoveOnHitEffect(Status* effect) { effectOnHitPhase.remove(effect); }
+
 	void SetCurrentMove(Move* move) { currentMove = move; }
 	Move* GetCurrentMove() { return currentMove; }
 
@@ -56,9 +59,11 @@ public:
 	int priority();
 
 	void Damage(int value, Types type = TYPE_NONE);
-	void OnDamage(Creature& sender) {}
+	void OnDamage(BattlePkmn* sender) { StatusEffectsOnHitPhase(); }
 
+	void StatusEffectsOnTurnStart();
 	void StatusEffectsBeforeMove();
 	void StatusEffectsEndOfTurn();
+	void StatusEffectsOnHitPhase();
 };
 
