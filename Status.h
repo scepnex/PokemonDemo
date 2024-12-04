@@ -2,19 +2,19 @@
 
 #include <string>
 
-class BattleInfo;
+class BattlePkmn;
 
 class Status
 {
 protected:
-	BattleInfo* appliedTo_;
+	BattlePkmn* appliedTo_;
 	std::string name_;
 
 public:
 	virtual ~Status() {}
 
-	virtual void Attach(BattleInfo* appliedTo) = 0;
-	virtual void Detach(BattleInfo* appliedTo) = 0;
+	virtual void Attach(BattlePkmn* appliedTo) = 0;
+	virtual void Detach(BattlePkmn* appliedTo) = 0;
 
 	virtual void OnApplyStatus() = 0;
 	virtual void OnRemoveStatus() = 0;
@@ -63,8 +63,8 @@ class Freeze : public SolidStatus
 {
 public:
 	Freeze() { name_ = "Freeze"; }
-	void Attach(BattleInfo* appliedTo) override;
-	void Detach(BattleInfo* appliedTo) override;
+	void Attach(BattlePkmn* appliedTo) override;
+	void Detach(BattlePkmn* appliedTo) override;
 
 	void BeforeMove() override;
 };
@@ -72,42 +72,24 @@ public:
 class Paralyzed : public SolidStatus
 {
 public:
-	void Attach(BattleInfo* appliedTo) override;
-	void Detach(BattleInfo* appliedTo) override;
+	void Attach(BattlePkmn* appliedTo) override;
+	void Detach(BattlePkmn* appliedTo) override;
 
-	void BeforeMove() override
-	{
-		//chance of interrupt move
-	}
-	void OnApplyStatus() override
-	{
-		//apply speed debuff
-	}
-	void OnRemoveStatus() override
-	{
-		//remove speed debuff
-	}
+	void BeforeMove() override;
+	void OnApplyStatus() override;
+	void OnRemoveStatus() override;
 };
 
 class Burn : public SolidStatus
 {
 public:
 	Burn() { name_ = "Burn"; }
-	void Attach(BattleInfo* appliedTo) override {}
-	void Detach(BattleInfo* appliedTo) override {}
+	void Attach(BattlePkmn* appliedTo) override;
+	void Detach(BattlePkmn* appliedTo) override;
 
-	void EndOfTurn() override
-	{
-		//apply burn damage
-	}
-	void OnApplyStatus() override
-	{
-		//apply burn debuff
-	}
-	void OnRemoveStatus() override
-	{
-		//remove burn debuff
-	}
+	void EndOfTurn() override;
+	void OnApplyStatus() override;
+	void OnRemoveStatus() override;
 };
 
 //class Flinch : public VolatileStatus

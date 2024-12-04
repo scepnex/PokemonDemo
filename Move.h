@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include <BattleInfo.h>
+#include <BattlePkmn.h>
 #include <MoveCommand.h>
 #include <UsefulFunctions.h>
 
@@ -20,7 +20,7 @@ public:
 	MoveComponent() {}
 	virtual ~MoveComponent() {}
 
-	virtual void Apply(BattleInfo* sender, BattleInfo* target) = 0;
+	virtual void Apply(BattlePkmn* sender, BattlePkmn* target) = 0;
 	virtual void print() = 0;
 
 	bool operator == (const MoveComponent& rhs) const
@@ -38,7 +38,7 @@ protected:
 public:
 	Damage(float value, Types moveType) : power(value), moveType_(moveType) {}
 
-	void Apply(BattleInfo* sender, BattleInfo* target) override;
+	void Apply(BattlePkmn* sender, BattlePkmn* target) override;
 	void print() override { cout << "Damage for " << power; }
 };
 
@@ -50,7 +50,7 @@ protected:
 public:
 	StatusEffect(SolidStatus* _effect, float rate) : effect(_effect), successRate(rate) {}
 
-	void Apply(BattleInfo* sender, BattleInfo* target) override
+	void Apply(BattlePkmn* sender, BattlePkmn* target) override
 	{
 		float chance = UsefulFunctions::randomFloat();
 
@@ -70,7 +70,7 @@ protected:
 public:
 	VolatileEffect(VolatileStatus* _effect, float rate) : effect(_effect), successRate(rate) {}
 
-	void Apply(BattleInfo* sender, BattleInfo* target) override
+	void Apply(BattlePkmn* sender, BattlePkmn* target) override
 	{
 		target->ApplyVolatileStatus(effect);
 	}
@@ -94,13 +94,13 @@ protected:
 	int priority = 0;
 
 	std::vector<MoveComponent*> elements;
-	BattleInfo& owner_;
-	BattleInfo* target_ = nullptr;
+	BattlePkmn& owner_;
+	BattlePkmn* target_ = nullptr;
 
 	bool canceled_ = false;
 
 public:
-	explicit Move(BattleInfo& owner) : owner_(owner) {}
+	explicit Move(BattlePkmn& owner) : owner_(owner) {}
 	std::string getName() { return name; }
 
 	float getAccuracy() { return accuracy; }
@@ -114,7 +114,7 @@ public:
 		elements.push_back(comp);
 	}
 
-	void SetTarget(BattleInfo* target) { target_ = target; }
+	void SetTarget(BattlePkmn* target) { target_ = target; }
 
 	void print()
 	{
@@ -189,11 +189,11 @@ public:
 class MoveBlizzard : public Move
 {
 public:
-	MoveBlizzard(BattleInfo &owner);
+	MoveBlizzard(BattlePkmn &owner);
 };
 
 class MoveEmber : public Move
 {
 public:
-	MoveEmber(BattleInfo& owner);
+	MoveEmber(BattlePkmn& owner);
 };

@@ -11,7 +11,7 @@
 
 class Move;
 
-class BattleInfo
+class BattlePkmn
 {
 	Creature& parent_;
 
@@ -31,15 +31,19 @@ class BattleInfo
 
 public:
 
-	BattleInfo(Creature& parent) : parent_(parent) { currentMove = nullptr; statusEffect = nullptr; }
+	BattlePkmn(Creature& parent) : parent_(parent) { currentMove = nullptr; statusEffect = nullptr; }
 
 	void ApplyStatus(SolidStatus* effect);
 	void ApplyVolatileStatus(VolatileStatus* effect);
 
 	void AddTurnStartEffect(Status* effect) { effectOnTurnStart.push_back(effect); }
+	void RemoveTurnStartEffect(Status* effect) { effectOnTurnStart.remove(effect); }
 
 	void AddBeforeMoveEffect(Status* effect) { effectBeforeMove.push_back(effect); }
 	void RemoveBeforeMoveEffect(Status* effect) { effectBeforeMove.remove(effect); }
+
+	void AddEndOfTurnEffect(Status* effect) { effectOnTurnEnd.push_back(effect); }
+	void RemoveEndOfTurnEffect(Status* effect) { effectOnTurnEnd.remove(effect); }
 
 	void SetCurrentMove(Move* move) { currentMove = move; }
 	Move* GetCurrentMove() { return currentMove; }
@@ -53,8 +57,8 @@ public:
 
 	void Damage(int value, Types type = TYPE_NONE);
 	void OnDamage(Creature& sender) {}
-	void StatusEndOfTurn();
 
 	void StatusEffectsBeforeMove();
+	void StatusEffectsEndOfTurn();
 };
 

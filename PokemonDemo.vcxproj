@@ -131,7 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BattleInfo.cpp" />
+    <ClCompile Include="BattlePkmn.cpp" />
     <ClCompile Include="BattleManager.cpp" />
     <ClCompile Include="Move.cpp" />
     <ClCompile Include="Creature.cpp" />
@@ -141,7 +141,7 @@
     <ClCompile Include="Status.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BattleInfo.h" />
+    <ClInclude Include="BattlePkmn.h" />
     <ClInclude Include="BattleManager.h" />
     <ClInclude Include="Move.h" />
     <ClInclude Include="MoveCommand.h" />

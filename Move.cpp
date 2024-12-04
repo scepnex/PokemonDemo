@@ -1,6 +1,6 @@
 #include "Move.h"
 
-void Damage::Apply(BattleInfo* sender, BattleInfo* target)
+void Damage::Apply(BattlePkmn* sender, BattlePkmn* target)
 {
 	float result = 2.2f * power * sender->getStat(ATTACK) / target->getStat(DEFENSE);
 
@@ -9,7 +9,7 @@ void Damage::Apply(BattleInfo* sender, BattleInfo* target)
 	target->Damage(int(result), moveType_);
 }
 
-MoveEmber::MoveEmber(BattleInfo& owner) : Move(owner)
+MoveEmber::MoveEmber(BattlePkmn& owner) : Move(owner)
 {
 	name = "Ember";;
 	battleEffect = "Basic FIRE attack.";
@@ -18,10 +18,10 @@ MoveEmber::MoveEmber(BattleInfo& owner) : Move(owner)
 	accuracy = 100.f;
 
 	AddComponent(new Damage(40, attackType));
-	AddComponent(new StatusEffect(new Burn(), 0.1f));
+	AddComponent(new StatusEffect(new Burn(), 0.7f));
 }
 
-MoveBlizzard::MoveBlizzard(BattleInfo& owner) : Move(owner)
+MoveBlizzard::MoveBlizzard(BattlePkmn& owner) : Move(owner)
 {
 	name = "Blizzard";
 	battleEffect = "Strongest ICE attack. Might Freeze Target.";
@@ -31,5 +31,5 @@ MoveBlizzard::MoveBlizzard(BattleInfo& owner) : Move(owner)
 	priority = 0;
 
 	AddComponent(new Damage(120, attackType));
-	AddComponent(new StatusEffect(new Freeze(), 0.1f));
+	AddComponent(new StatusEffect(new Freeze(), 0.7f));
 }

@@ -3,25 +3,25 @@
 
 using namespace std;
 
-void BattleManager::SetCreature1(BattleInfo* b1)
+void BattleManager::SetCreature1(BattlePkmn* b1)
 {
 	bInfo1 = b1;
 }
 
-void BattleManager::SetCreature2(BattleInfo* b2)
+void BattleManager::SetCreature2(BattlePkmn* b2)
 {
 	bInfo2 = b2;
 }
 
-void BattleManager::BeforeMoveStatusEffects(BattleInfo* activeInfo)
+void BattleManager::BeforeMoveStatusEffects(BattlePkmn* activeInfo)
 {
 	activeInfo->StatusEffectsBeforeMove();
 }
 
 void BattleManager::EndOfTurnStatus()
 {
-	bInfo1->StatusEndOfTurn();
-	bInfo2->StatusEndOfTurn();
+	bInfo1->StatusEffectsEndOfTurn();
+	bInfo2->StatusEffectsEndOfTurn();
 }
 
 int BattleManager::SlowestPriority(int sorted_index)

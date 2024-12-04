@@ -12,7 +12,7 @@ using namespace std;
 #include <StatModifiers.h>
 
 #include <BattleManager.h>
-#include <BattleInfo.h>
+#include <BattlePkmn.h>
 
 //void testCreature()
 //{
@@ -99,15 +99,13 @@ void testBattle()
     BattleManager bMgr;
 
     Creature* poke1 = new Cloyster();
-    BattleInfo* bInfo1 = new BattleInfo(*poke1);
+    BattlePkmn* bInfo1 = new BattlePkmn(*poke1);
     Creature* poke2 = new Forretress();
-    BattleInfo* bInfo2 = new BattleInfo(*poke2);
+    BattlePkmn* bInfo2 = new BattlePkmn(*poke2);
 
     bInfo1->SetCurrentMove(new MoveBlizzard(*bInfo1));
     bInfo2->SetCurrentMove(new MoveEmber(*bInfo2));
 
-    SolidStatus* frozen = new Freeze();
-    //bInfo2->ApplyStatus(frozen);
 
     cout << "Testing BattleManager\n";
 

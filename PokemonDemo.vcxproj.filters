@@ -27,7 +27,7 @@
     <ClCompile Include="Move.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BattleInfo.cpp">
+    <ClCompile Include="BattlePkmn.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Status.cpp">
@@ -50,7 +50,7 @@
     <ClInclude Include="Move.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BattleInfo.h">
+    <ClInclude Include="BattlePkmn.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Status.h">

@@ -71,6 +71,11 @@ void Creature::damage(int value)
 {
 	cout << "    " << name << " damaged for " << value << "\n";
 	currentHealth -= value;
+
+	if (currentHealth < 0)
+		currentHealth = 0;
+
+	cout << "    HP: " << currentHealth << "/" << getStat(HEALTH) << endl;
 }
 
 void Creature::applyStatus(string txt)

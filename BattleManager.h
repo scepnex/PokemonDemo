@@ -1,6 +1,6 @@
 #pragma once
 
-#include <BattleInfo.h>
+#include <BattlePkmn.h>
 #include <queue>
 
 class Move;
@@ -8,22 +8,22 @@ class Move;
 class BattleManager
 {
 private:
-	BattleInfo* bInfo1;
-	BattleInfo* bInfo2;
+	BattlePkmn* bInfo1;
+	BattlePkmn* bInfo2;
 
 	std::queue<Move*> moves;
 
 public:
 
-	void SetCreature1(BattleInfo* b1);
-	void SetCreature2(BattleInfo* b2);
+	void SetCreature1(BattlePkmn* b1);
+	void SetCreature2(BattlePkmn* b2);
 
 	void SlowestMoveToRearOfQueue(int min_index);
 	int SlowestPriority(int sorted_index);
 	void SortMoveQueue();
 
 	void Turn();
-	void BeforeMoveStatusEffects(BattleInfo* activeInfo);
+	void BeforeMoveStatusEffects(BattlePkmn* activeInfo);
 
 	void BeforeTurnStatus() {}
 	void EndOfTurnStatus();
