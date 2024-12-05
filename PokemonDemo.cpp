@@ -14,6 +14,10 @@ using namespace std;
 #include <BattleManager.h>
 #include <BattlePkmn.h>
 
+// Initialize static members
+CreatureTypes* CreatureTypes::instance = nullptr;
+mutex CreatureTypes::mtx;
+
 //void testCreature()
 //{
 //    cout << endl;
@@ -40,22 +44,22 @@ using namespace std;
 //
 //}
 
-void testTypes()
-{
-    cout << endl;
-    CreatureTypes typeUtil;
-
-    cout << endl;
-    cout << "Normal vs Normal: " << typeUtil.checkEffective(NORMAL, NORMAL) << endl;
-    cout << "Normal vs Rock: " << typeUtil.checkEffective(NORMAL, ROCK) << endl;
-    cout << "Normal vs Ghost: " << typeUtil.checkEffective(NORMAL, GHOST) << endl;
-    cout << "Normal vs Steel: " << typeUtil.checkEffective(NORMAL, STEEL) << endl;
-    cout << "Water vs Fire: " << typeUtil.checkEffective(WATER, FIRE) << endl;
-    cout << "Fighting vs Poison: " << typeUtil.checkEffective(FIGHTING, POISON) << endl;
-    cout << "Fighting vs Flying: " << typeUtil.checkEffective(FIGHTING, FLYING) << endl;
-    cout << "Fighting vs Dark: " << typeUtil.checkEffective(FIGHTING, DARK) << endl;
-    cout << "Bug vs Fairy: " << typeUtil.checkEffective(BUG, FAIRY) << endl;
-}
+//void testTypes()
+//{
+//    cout << endl;
+//    CreatureTypes typeUtil;
+//
+//    cout << endl;
+//    cout << "Normal vs Normal: " << typeUtil.checkEffective(NORMAL, NORMAL) << endl;
+//    cout << "Normal vs Rock: " << typeUtil.checkEffective(NORMAL, ROCK) << endl;
+//    cout << "Normal vs Ghost: " << typeUtil.checkEffective(NORMAL, GHOST) << endl;
+//    cout << "Normal vs Steel: " << typeUtil.checkEffective(NORMAL, STEEL) << endl;
+//    cout << "Water vs Fire: " << typeUtil.checkEffective(WATER, FIRE) << endl;
+//    cout << "Fighting vs Poison: " << typeUtil.checkEffective(FIGHTING, POISON) << endl;
+//    cout << "Fighting vs Flying: " << typeUtil.checkEffective(FIGHTING, FLYING) << endl;
+//    cout << "Fighting vs Dark: " << typeUtil.checkEffective(FIGHTING, DARK) << endl;
+//    cout << "Bug vs Fairy: " << typeUtil.checkEffective(BUG, FAIRY) << endl;
+//}
 
 //void testMoves()
 //{
@@ -94,6 +98,8 @@ void testStatBuffs()
 
 void testBattle()
 {
+    CreatureTypes* types = CreatureTypes::getInstance();
+
     cout << "Testing BattleManager\n";
 
     cout << endl;
@@ -101,13 +107,17 @@ void testBattle()
 
     Creature* poke1 = new Cloyster();
     BattlePkmn* bInfo1 = new BattlePkmn(*poke1);
+
     Creature* poke2 = new Forretress();
     BattlePkmn* bInfo2 = new BattlePkmn(*poke2);
 
-    bInfo1->SetCurrentMove(new MoveBlizzard(*bInfo1));
-    bInfo2->SetCurrentMove(new MoveEmber(*bInfo2));
-    bInfo1->SetCurrentMove(new MoveFocusPunch(*bInfo1));
+    bInfo1->AddMove(new MoveBlizzard(*bInfo1));
+    bInfo1->AddMove(new MoveEmber(*bInfo1));
+    bInfo1->AddMove(new MoveFocusPunch(*bInfo1));
 
+    bInfo2->AddMove(new MoveBlizzard(*bInfo2));
+    bInfo2->AddMove(new MoveEmber(*bInfo2));
+    bInfo2->AddMove(new MoveFocusPunch(*bInfo2));
 
 
     bMgr.SetCreature1(bInfo1);
@@ -121,13 +131,6 @@ int main()
 {
     srand(time(NULL));
 
-    //testCreature();
-
-    //testTypes();
-
-    //testMoves();
-
-    //testStatBuffs();
 
     testBattle();
 }

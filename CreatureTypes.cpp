@@ -1,5 +1,24 @@
 #include <CreatureTypes.h>
 
+float CreatureTypes::getMultiplier(Types attack, Types defend)
+{
+	float result = 1.0f;
+	switch (getInstance()->typeMatrix[attack][defend])
+	{
+	case ZERO:
+		result = 0.f;
+		break;
+	case HALF:
+		result = 0.5f;
+		break;
+	case DOUBLE:
+		result = 2.f;
+		break;
+	}
+
+	return result;
+}
+
 CreatureTypes::CreatureTypes()
 {
 	for (int i = 0; i < NUM_TYPES; i++)
@@ -92,6 +111,8 @@ CreatureTypes::CreatureTypes()
 	//STEEL
 
 	//FIRE
+	typeMatrix[FIRE][BUG] = DOUBLE;
+	typeMatrix[FIRE][STEEL] = DOUBLE;
 
 	//WATER
 	typeMatrix[WATER][FIRE] = DOUBLE;
@@ -131,4 +152,5 @@ std::string CreatureTypes::checkEffective(Types attackingMoveType, Types defendi
 	case DOUBLE:
 		return "super effective!";
 	}
+	return "";
 }

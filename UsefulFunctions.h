@@ -1,8 +1,10 @@
 #pragma once
 
 #include <stdlib.h>
+#include <CreatureTypes.h>
 
 class UsefulFunctions {
+
 public:
 	static float randomFloat()
 	{

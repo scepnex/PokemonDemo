@@ -18,6 +18,15 @@ int BattlePkmn::priority()
 	return result;
 }
 
+void BattlePkmn::SelectRandomMove()
+{
+	int randIndex = UsefulFunctions::randomFloat() * creatureMoves.size();
+
+	currentMove = creatureMoves.at(randIndex);
+	currentMove->onSelectMove();
+
+}
+
 void BattlePkmn::StatusEffectsOnTurnStart()
 {
 	std::list<Status*>::iterator iterator = effectOnTurnStart.begin();
@@ -66,6 +75,14 @@ void BattlePkmn::ApplyStatus(SolidStatus* effect)
 		statusEffect = effect;
 		effect->Attach(this);
 	}
+}
+
+Types BattlePkmn::getType(int index)
+{
+	if (index == 1)
+		return parent_.getType1();
+	else
+		return parent_.getType2();
 }
 
 

@@ -1,11 +1,34 @@
 #include "Move.h"
+#include "CreatureTypes.h"
 
 void Damage::Apply(BattlePkmn* sender, BattlePkmn* target)
 {
 	float result = 2.2f * power * sender->getStat(ATTACK) / target->getStat(DEFENSE);
 
 
-	
+
+	float effective = CreatureTypes::getMultiplier(moveType_, target->getType(1))
+		* CreatureTypes::getMultiplier(moveType_, target->getType(2));
+
+	cout << "    ";
+
+	if (effective >= 2)
+	{
+		cout << "Super effective! ";
+	}
+	if (effective <= 0.5 && effective > 0)
+	{
+		cout << "Not very effective... ";
+	}
+	if (effective <= 0)
+	{
+		cout << "It had no effect! ";
+	}
+
+	cout << "(damage x" << effective << ") \n";
+
+	result *= effective;
+
 	target->Damage(int(result), moveType_);
 	target->OnDamage(sender);
 }
@@ -50,6 +73,4 @@ MoveFocusPunch::MoveFocusPunch(BattlePkmn& owner) : Move(owner)
 	priority = -3;
 
 	AddComponent(new Damage(150, attackType));
-
-	onSelectMove();
 }

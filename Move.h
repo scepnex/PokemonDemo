@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Creature.h>
-#include <CreatureTypes.h>
+//#include <CreatureTypes.h>
 #include <Status.h>
 #include <string>
 #include <vector>
@@ -23,10 +23,7 @@ public:
 	virtual void Apply(BattlePkmn* sender, BattlePkmn* target) = 0;
 	virtual void print() = 0;
 
-	bool operator == (const MoveComponent& rhs) const
-	{
-		return *this == rhs;
-	}
+	bool operator == (const MoveComponent& rhs) const { return *this == rhs; }
 };
 
 class Damage : public MoveComponent

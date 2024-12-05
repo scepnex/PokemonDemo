@@ -16,7 +16,7 @@ class BattlePkmn
 	Creature& parent_;
 
 	Move* currentMove;
-	std::list<Move*> creatureMoves;
+	std::vector<Move*> creatureMoves;
 	
 	SolidStatus* statusEffect;
 	std::list<VolatileStatus*> volatileStatuses;
@@ -32,6 +32,10 @@ class BattlePkmn
 public:
 
 	BattlePkmn(Creature& parent) : parent_(parent) { currentMove = nullptr; statusEffect = nullptr; }
+
+	void AddMove(Move* moveToAdd) { creatureMoves.push_back(moveToAdd); }
+
+	void SelectRandomMove();
 
 	void ApplyStatus(SolidStatus* effect);
 	void ApplyVolatileStatus(VolatileStatus* effect);
@@ -53,6 +57,8 @@ public:
 
 	float getStat(Stats stat) { return float(parent_.getStat(stat)); }
 	float getStatMod(Stats stat);
+
+	Types getType(int index);
 
 	std::string getName() { return parent_.getName(); }
 

@@ -120,6 +120,9 @@ void BattleManager::SortMoveQueue()
 
 void BattleManager::Turn()
 {
+	bInfo1->SelectRandomMove();
+	bInfo2->SelectRandomMove();
+
 	//1 vs 1 Move target hack solution for now
 	bInfo1->GetCurrentMove()->SetTarget(bInfo2);
 	bInfo2->GetCurrentMove()->SetTarget(bInfo1);

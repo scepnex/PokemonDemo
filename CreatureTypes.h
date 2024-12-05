@@ -1,6 +1,9 @@
 #pragma once
 
-#include <string>
+#include <iostream>
+#include <mutex>
+
+using namespace std;
 
 enum Types {
 	TYPE_NONE = 0, // ??? type for Eggs, special case attacks.
@@ -33,10 +36,30 @@ enum Effective {
 };
 
 class CreatureTypes {
-public:
-	Effective typeMatrix[NUM_TYPES][NUM_TYPES];
 
+private:
+	static CreatureTypes* instance;
+	static mutex mtx;
 	CreatureTypes();
 
+public:
+	// Deleting the copy constructor to prevent copies
+	CreatureTypes(const CreatureTypes& obj) = delete;
+
+	// Static method to get the Singleton instance
+	static CreatureTypes* getInstance() {
+		if (instance == nullptr) {
+			lock_guard<mutex> lock(mtx);
+			if (instance == nullptr) {
+				instance = new CreatureTypes();
+			}
+		}
+		return instance;
+	}
+
+	Effective typeMatrix[NUM_TYPES][NUM_TYPES];
+
+
 	std::string checkEffective(Types attackingMoveType, Types defendingCreatureType);
+	static float getMultiplier(Types attack, Types defend);
 };
