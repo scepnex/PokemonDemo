@@ -5,8 +5,14 @@ void Damage::Apply(BattlePkmn* sender, BattlePkmn* target)
 {
 	float result = 2.2f * power * sender->getStat(ATTACK) / target->getStat(DEFENSE);
 
+	float STAB = 1.f; //Same-type attack bonus
+	if (moveType_ == sender->getType(1) || moveType_ == sender->getType(2))
+	{
+		STAB = 1.5f;
+		cout << "    user type and move type same, STAB applies. \n";
+	}
 
-
+	//effectivity
 	float effective = CreatureTypes::getMultiplier(moveType_, target->getType(1))
 		* CreatureTypes::getMultiplier(moveType_, target->getType(2));
 
@@ -27,7 +33,7 @@ void Damage::Apply(BattlePkmn* sender, BattlePkmn* target)
 
 	cout << "(damage x" << effective << ") \n";
 
-	result *= effective;
+	result *= effective * STAB;
 
 	target->Damage(int(result), moveType_);
 	target->OnDamage(sender);

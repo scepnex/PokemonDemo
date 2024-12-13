@@ -1,6 +1,5 @@
-﻿  PokemonDemo.cpp
+﻿  Move.cpp
 C:\Users\Gavin\source\repos\PokemonDemo\PokemonDemo\Move.h(105,45): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
-  (compiling source file 'PokemonDemo.cpp')
+  (compiling source file 'Move.cpp')
   
-C:\Users\Gavin\source\repos\PokemonDemo\PokemonDemo\PokemonDemo.cpp(132,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   PokemonDemo.vcxproj -> C:\Users\Gavin\source\repos\PokemonDemo\x64\Debug\PokemonDemo.exe
